@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router";
 import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 
-export function Navbar() {
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
@@ -21,30 +22,28 @@ export function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 bg-white border-b border-border shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
-            <div className="w-16 h-16 bg-none rounded flex items-center justify-center">
+            <div className="w-16 h-16 rounded flex items-center justify-center">
               {/* <span className="text-white font-bold">DTU</span> */}
-              <img src="dtu-logo.webp" alt="DTU-LOGO" />
+              <img src="dtu-logo.webp" alt="LOGO" />
             </div>
             <div className="hidden sm:block">
-              <div className="font-bold text-foreground">DTU Studio</div>
+              <div className="text-lg font-semibold text-foreground">DTU Studio</div>
               <div className="text-xs text-muted-foreground">Media Cell</div>
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
-                className={`px-3 py-2 rounded transition-colors ${
+                className={`px-3 py-2 text-sm transition-colors ${
                   isActive(link.path)
-                    ? "bg-primary text-white"
-                    : "text-foreground hover:bg-secondary"
+                    ? "text-primary font-medium"
+                    : "text-foreground hover:text-primary"
                 }`}
               >
                 {link.label}
@@ -52,28 +51,33 @@ export function Navbar() {
             ))}
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 rounded hover:bg-secondary transition-colors"
+            className="lg:hidden p-2 text-foreground hover:text-primary"
             aria-label="Toggle menu"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
+      </div>
 
-        {/* Mobile Navigation */}
+      <AnimatePresence>
         {isOpen && (
-          <div className="lg:hidden py-4 border-t border-border">
-            <div className="flex flex-col gap-2">
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="lg:hidden border-t border-border bg-white"
+          >
+            <div className="px-4 py-3 space-y-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
                   onClick={() => setIsOpen(false)}
-                  className={`px-4 py-3 rounded transition-colors ${
+                  className={`block px-3 py-2 rounded text-sm transition-colors ${
                     isActive(link.path)
-                      ? "bg-primary text-white"
+                      ? "bg-primary/10 text-primary font-medium"
                       : "text-foreground hover:bg-secondary"
                   }`}
                 >
@@ -81,9 +85,9 @@ export function Navbar() {
                 </Link>
               ))}
             </div>
-          </div>
+          </motion.div>
         )}
-      </div>
+      </AnimatePresence>
     </nav>
   );
 }

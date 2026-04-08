@@ -1,8 +1,8 @@
 import { Outlet } from "react-router";
-import { Navbar } from "./Navbar";
-import { Footer } from "./Footer";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
-export function RootLayout() {
+export default function Root() {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />

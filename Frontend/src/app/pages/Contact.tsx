@@ -1,207 +1,213 @@
 import { useState } from "react";
-import { SectionContainer } from "../components/ui/SectionContainer";
-import { Card } from "../components/ui/Card";
-import { Input } from "../components/ui/Input";
-import { Textarea } from "../components/ui/Textarea";
-import { Button } from "../components/ui/Button";
-import { Mail, MapPin, Phone, Clock, MessageSquare } from "lucide-react";
-import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { motion } from "motion/react";
+import { Mail, MapPin, Phone, Clock, Send } from "lucide-react";
+import Button from "../components/Button";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    subject: "",
-    message: "",
+    phone: "",
+    message: ""
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Form submitted! In production, this would send to backend.");
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    console.log("Form submitted:", formData);
+    alert("Thank you for your message. We will get back to you soon!");
+    setFormData({ name: "", email: "", phone: "", message: "" });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   };
 
-  const collaborationCharges = [
-    { service: "Event Photography (Half Day)", price: "₹5,000" },
-    { service: "Event Photography (Full Day)", price: "₹8,000" },
-    { service: "Event Videography (Half Day)", price: "₹7,000" },
-    { service: "Event Videography (Full Day)", price: "₹12,000" },
-    { service: "Professional Photo Editing (per image)", price: "₹200" },
-    { service: "Video Editing (per minute)", price: "₹500" },
-    { service: "Social Media Content Package", price: "₹10,000/month" },
-    { service: "Documentary Production", price: "₹50,000+" },
+  const collaborationRates = [
+    { service: "Event Photography", rate: "₹5,000 - ₹15,000", duration: "Per Event" },
+    { service: "Event Videography", rate: "₹8,000 - ₹20,000", duration: "Per Event" },
+    { service: "Professional Photoshoot", rate: "₹3,000 - ₹10,000", duration: "Per Session" },
+    { service: "Video Production", rate: "₹15,000 - ₹50,000", duration: "Per Project" },
+    { service: "Social Media Content", rate: "₹2,000 - ₹8,000", duration: "Per Campaign" },
+    { service: "Graphic Design", rate: "₹1,500 - ₹5,000", duration: "Per Design" }
   ];
 
   return (
-    <>
-      {/* Hero Section */}
-      <div className="relative h-80 flex items-center justify-center overflow-hidden">
-        {/* <ImageWithFallback
-          src="https://images.unsplash.com/photo-1772657577424-1ae6f223919d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920"
-          alt="Contact Us"
-          className="w-full h-full object-cover"
-        /> */}
-        <div className="absolute inset-0 bg-primary" />
-        <div className="relative z-10 text-center px-4">
-          <MessageSquare className="w-16 h-16 text-white mx-auto mb-4" />
-          <h1 className="text-5xl text-white mb-4">Contact Us</h1>
-          <p className="text-xl text-white/90 max-w-2xl mx-auto">
-            Get in touch with DTU Studio for collaborations, inquiries, or media requests
-          </p>
+    <div className="min-h-screen bg-secondary/20">
+      <div className="bg-primary text-white py-16">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            <h1 className="mb-4">Contact Us</h1>
+            <p className="text-lg text-white/90 max-w-3xl">
+              Get in touch with DTU Media Cell for collaborations, inquiries, or general information
+            </p>
+          </motion.div>
         </div>
       </div>
 
-      <SectionContainer className="bg-gradient-to-b from-gray-50 to-white">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {/* Contact Information */}
-          <div>
-            <h2 className="mb-6 text-primary">Get in Touch</h2>
-            <div className="space-y-4 mb-8">
-              <Card className="hover:shadow-lg transition-shadow border-l-4 border-l-primary">
-                <div className="flex items-start gap-3">
-                  <Mail className="text-primary mt-1" size={20} />
-                  <div>
-                    <h4 className="mb-1">Email</h4>
-                    <p className="text-sm text-muted-foreground">studio@dtu.ac.in</p>
-                    <p className="text-sm text-muted-foreground">mediacell@dtu.ac.in</p>
-                  </div>
-                </div>
-              </Card>
-
-              <Card className="hover:shadow-lg transition-shadow border-l-4 border-l-blue-500">
-                <div className="flex items-start gap-3">
-                  <Phone className="text-blue-500 mt-1" size={20} />
-                  <div>
-                    <h4 className="mb-1">Phone</h4>
-                    <p className="text-sm text-muted-foreground">+91 11 2787 XXXX</p>
-                    <p className="text-sm text-muted-foreground">+91 XXXXX XXXXX (Mobile)</p>
-                  </div>
-                </div>
-              </Card>
-
-              <Card className="hover:shadow-lg transition-shadow border-l-4 border-l-green-500">
-                <div className="flex items-start gap-3">
-                  <MapPin className="text-green-500 mt-1" size={20} />
-                  <div>
-                    <h4 className="mb-1">Address</h4>
-                    <p className="text-sm text-muted-foreground">
-                      DTU Studio - Media Cell<br />
-                      Delhi Technological University<br />
-                      Shahbad Daulatpur, Main Bawana Road<br />
-                      Delhi - 110042, India
-                    </p>
-                  </div>
-                </div>
-              </Card>
-
-              <Card className="hover:shadow-lg transition-shadow border-l-4 border-l-orange-500">
-                <div className="flex items-start gap-3">
-                  <Clock className="text-orange-500 mt-1" size={20} />
-                  <div>
-                    <h4 className="mb-1">Office Hours</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Monday - Friday: 9:00 AM - 5:00 PM<br />
-                      Saturday: 9:00 AM - 1:00 PM<br />
-                      Sunday: Closed
-                    </p>
-                  </div>
-                </div>
-              </Card>
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white rounded-lg p-6 border border-border"
+          >
+            <div className="w-12 h-12 bg-primary/10 rounded flex items-center justify-center mb-4">
+              <Mail className="text-primary" size={24} />
             </div>
-          </div>
+            <h3 className="mb-2">Email</h3>
+            <p className="text-sm text-muted-foreground mb-2">Send us an email</p>
+            <a href="mailto:mediacell@dtu.ac.in" className="text-primary hover:underline">
+              mediacell@dtu.ac.in
+            </a>
+          </motion.div>
 
-          {/* Contact Form */}
-          <div>
-            <h2 className="mb-6 text-primary">Send Us a Message</h2>
-            <Card className="shadow-lg">
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <Input
-                  label="Name"
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="bg-white rounded-lg p-6 border border-border"
+          >
+            <div className="w-12 h-12 bg-primary/10 rounded flex items-center justify-center mb-4">
+              <Phone className="text-primary" size={24} />
+            </div>
+            <h3 className="mb-2">Phone</h3>
+            <p className="text-sm text-muted-foreground mb-2">Call us during office hours</p>
+            <a href="tel:+91XXXXXXXXXX" className="text-primary hover:underline">
+              +91-XXXX-XXXXXX
+            </a>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="bg-white rounded-lg p-6 border border-border"
+          >
+            <div className="w-12 h-12 bg-primary/10 rounded flex items-center justify-center mb-4">
+              <Clock className="text-primary" size={24} />
+            </div>
+            <h3 className="mb-2">Office Hours</h3>
+            <p className="text-sm text-muted-foreground mb-2">Monday - Friday</p>
+            <p className="text-primary">9:00 AM - 5:00 PM</p>
+          </motion.div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+          >
+            <h2 className="mb-6">Send us a Message</h2>
+            <form onSubmit={handleSubmit} className="bg-white rounded-lg p-8 border border-border space-y-6">
+              <div>
+                <label htmlFor="name" className="block mb-2 text-sm">Name *</label>
+                <input
                   type="text"
+                  id="name"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="Your full name"
                   required
+                  className="w-full px-4 py-3 bg-input-background border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  placeholder="Your full name"
                 />
-                <Input
-                  label="Email"
+              </div>
+
+              <div>
+                <label htmlFor="email" className="block mb-2 text-sm">Email *</label>
+                <input
                   type="email"
+                  id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 bg-input-background border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary/20"
                   placeholder="your.email@example.com"
-                  required
                 />
-                <Input
-                  label="Subject"
-                  type="text"
-                  name="subject"
-                  value={formData.subject}
+              </div>
+
+              <div>
+                <label htmlFor="phone" className="block mb-2 text-sm">Phone</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value={formData.phone}
                   onChange={handleChange}
-                  placeholder="What is this regarding?"
-                  required
+                  className="w-full px-4 py-3 bg-input-background border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  placeholder="+91-XXXXX-XXXXX"
                 />
-                <Textarea
-                  label="Message"
+              </div>
+
+              <div>
+                <label htmlFor="message" className="block mb-2 text-sm">Message *</label>
+                <textarea
+                  id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Tell us more about your inquiry..."
                   required
+                  rows={6}
+                  className="w-full px-4 py-3 bg-input-background border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none"
+                  placeholder="Tell us about your inquiry..."
                 />
-                <Button type="submit" variant="primary" className="w-full shadow-md hover:shadow-lg">
-                  Send Message
-                </Button>
-              </form>
-            </Card>
-          </div>
-        </div>
-      </SectionContainer>
+              </div>
 
-      {/* Collaboration Charges */}
-      <SectionContainer background="gray">
-        <h2 className="text-center mb-4 text-primary">Collaboration Charges</h2>
-        <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
-          Professional media services for events, promotions, and content creation
-        </p>
-        <div className="max-w-4xl mx-auto">
-          <Card className="shadow-xl">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b-2 border-primary bg-primary/5">
-                    <th className="text-left py-4 px-4">Service</th>
-                    <th className="text-right py-4 px-4">Price</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {collaborationCharges.map((item, index) => (
-                    <tr key={index} className="border-b border-border last:border-0 hover:bg-gray-50 transition-colors">
-                      <td className="py-4 px-4">{item.service}</td>
-                      <td className="py-4 px-4 text-right text-primary">{item.price}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <Button type="submit" variant="primary" className="w-full flex items-center justify-center gap-2">
+                <Send size={18} />
+                Send Message
+              </Button>
+            </form>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="space-y-8"
+          >
+            <div className="bg-white rounded-lg p-8 border border-border">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-primary/10 rounded flex items-center justify-center flex-shrink-0">
+                  <MapPin className="text-primary" size={24} />
+                </div>
+                <div>
+                  <h3 className="mb-2">Visit Us</h3>
+                  <p className="text-muted-foreground">
+                    Delhi Technological University<br />
+                    Shahbad Daulatpur, Main Bawana Road<br />
+                    Delhi - 110042, India
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="mt-6 pt-6 border-t-2 border-primary/20 bg-blue-50 rounded-lg p-4">
-              <p className="text-sm text-muted-foreground">
-                * Prices are indicative and may vary based on project requirements, duration, and complexity.
-                Custom packages are available for long-term collaborations and institutional events.
-                GST applicable as per government regulations.
+
+            <div className="bg-white rounded-lg p-8 border border-border">
+              <h3 className="mb-6">Collaboration Charges</h3>
+              <div className="space-y-4">
+                {collaborationRates.map((item, index) => (
+                  <div key={index} className="pb-4 border-b border-border last:border-0 last:pb-0">
+                    <div className="flex justify-between items-start mb-1">
+                      <span className="font-medium">{item.service}</span>
+                      <span className="text-primary font-semibold">{item.rate}</span>
+                    </div>
+                    <span className="text-sm text-muted-foreground">{item.duration}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-6 text-sm text-muted-foreground">
+                * Rates are indicative and may vary based on project scope and requirements. Contact us for detailed quotations.
               </p>
             </div>
-          </Card>
+          </motion.div>
         </div>
-      </SectionContainer>
-    </>
+      </div>
+    </div>
   );
 }

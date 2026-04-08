@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router";
-import { RootLayout } from "./components/layout/RootLayout";
-import HomePage from "./pages/HomePage";
+import Root from "./Root";
+import Home from "./pages/Home";
 import MonthInPictures from "./pages/MonthInPictures";
 import PressCoverage from "./pages/PressCoverage";
 import PressRelease from "./pages/PressRelease";
@@ -13,9 +13,9 @@ import NotFound from "./pages/NotFound";
 export const router = createBrowserRouter([
   {
     path: "/",
-    Component: RootLayout,
+    Component: Root,
     children: [
-      { index: true, Component: HomePage },
+      { index: true, Component: Home },
       { path: "month-in-pictures", Component: MonthInPictures },
       { path: "press-coverage", Component: PressCoverage },
       { path: "press-release", Component: PressRelease },
