@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { Calendar, Filter, ExternalLink } from "lucide-react";
+import { useMemo } from "react";
 
 export default function PressCoverage() {
-  const [filter, setFilter] = useState("all");
+  const [categoryFilter, setCategoryFilter] = useState("all");
+  const [monthFilter, setMonthFilter] = useState("all");
+  const [yearFilter, setYearFilter] = useState("all");
 
   // Mock data - API DATA HERE
   const newsItems = [
@@ -11,7 +14,9 @@ export default function PressCoverage() {
       id: 1,
       title: "DTU Students Win National Innovation Challenge",
       source: "The Times of India",
-      date: "March 15, 2026",
+      date: "March 15, 2024",
+      year: 2024,
+      month: "March",
       category: "Achievement",
       thumbnail: "img2505.png",
       summary: "DTU team secures first place in national-level innovation competition with groundbreaking AI solution.",
@@ -21,7 +26,9 @@ export default function PressCoverage() {
       id: 2,
       title: "Research Breakthrough in Renewable Energy",
       source: "Hindustan Times",
-      date: "March 10, 2026",
+      date: "March 10, 2023",
+      year: 2023,
+      month: "March",
       category: "Research",
       thumbnail: "img2504.png",
       summary: "DTU researchers develop efficient solar panel technology with 40% improved energy conversion.",
@@ -32,6 +39,8 @@ export default function PressCoverage() {
       title: "DTU Hosts International Tech Summit 2026",
       source: "Indian Express",
       date: "February 28, 2026",
+      year: 2026,
+      month: "February",
       category: "Event",
       thumbnail: "img2503.png",
       summary: "Three-day international summit brings together industry leaders and academia for technology discourse.",
@@ -42,6 +51,8 @@ export default function PressCoverage() {
       title: "Startup Incubator Launches 10 New Ventures",
       source: "Business Standard",
       date: "February 20, 2026",
+      year: 2026,
+      month: "February",
       category: "Entrepreneurship",
       thumbnail: "img2502.png",
       summary: "DTU's incubation center celebrates successful launch of 10 student-led startups.",
@@ -52,6 +63,8 @@ export default function PressCoverage() {
       title: "Cultural Festival Sets New Attendance Record",
       source: "Delhi Times",
       date: "February 15, 2026",
+      year: 2026,
+      month: "February",
       category: "Culture",
       thumbnail: "img2501.png",
       summary: "Annual cultural fest attracts over 15,000 participants from across the country.",
@@ -60,11 +73,20 @@ export default function PressCoverage() {
   ];
 
   const categories = ["all", "Achievement", "Research", "Event", "Entrepreneurship", "Culture", "Partnership"];
+  const months = Array.from(new Set(newsItems.map((item) => item.month))).sort((a, b) => {
+    const order = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    return order.indexOf(a) - order.indexOf(b);
+  });
+  const years = useMemo(() => {
+    return Array.from(new Set(newsItems.map((item) => item.year))).sort((a, b) => b - a);
+  }, [newsItems]);
 
-  const filteredNews = filter === "all"
-    ? newsItems
-    : newsItems.filter(item => item.category === filter);
-
+  const filteredNews = newsItems.filter((item) => {
+    const categoryMatches = categoryFilter === "all" || item.category === categoryFilter;
+    const monthMatches = monthFilter === "all" || item.month === monthFilter;
+    const yearMatches = yearFilter === "all" || item.year === Number(yearFilter);
+    return categoryMatches && monthMatches && yearMatches;
+  });
   return (
     <div className="min-h-screen bg-secondary/20">
       <div className="bg-primary text-white py-16">
@@ -85,7 +107,7 @@ export default function PressCoverage() {
       </div>
 
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] py-12">
-        <div className="mb-8 flex flex-wrap items-center gap-4">
+        <div className="mb-8 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex items-center gap-2 text-muted-foreground">
             <Filter size={20} />
             <span>Filter by category:</span>
@@ -94,9 +116,9 @@ export default function PressCoverage() {
             {categories.map((category) => (
               <button
                 key={category}
-                onClick={() => setFilter(category)}
+                onClick={() => setCategoryFilter(category)}
                 className={`px-4 py-2 rounded text-sm transition-colors ${
-                  filter === category
+                  categoryFilter === category
                     ? "bg-primary text-white"
                     : "bg-white text-foreground border border-border hover:border-primary"
                 }`}
@@ -104,6 +126,66 @@ export default function PressCoverage() {
                 {category === "all" ? "All" : category}
               </button>
             ))}
+          </div>
+
+          <div className="flex flex-col gap-3 lg:items-end">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-muted-foreground">Filter by month:</span>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => setMonthFilter("all")}
+                  className={`px-3 py-2 rounded text-sm transition-colors ${
+                    monthFilter === "all"
+                      ? "bg-primary text-white"
+                      : "bg-white text-foreground border border-border hover:border-primary"
+                  }`}
+                >
+                  All
+                </button>
+                {months.map((month) => (
+                  <button
+                    key={month}
+                    onClick={() => setMonthFilter(month)}
+                    className={`px-3 py-2 rounded text-sm transition-colors ${
+                      monthFilter === month
+                        ? "bg-primary text-white"
+                        : "bg-white text-foreground border border-border hover:border-primary"
+                    }`}
+                  >
+                    {month}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-muted-foreground">Filter by year:</span>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => setYearFilter("all")}
+                  className={`px-3 py-2 rounded text-sm transition-colors ${
+                    yearFilter === "all"
+                      ? "bg-primary text-white"
+                      : "bg-white text-foreground border border-border hover:border-primary"
+                  }`}
+                >
+                  All
+                </button>
+                {years.map((year) => (
+                  <button
+                    key={year}
+                    onClick={() => setYearFilter(String(year))}
+                    className={`px-3 py-2 rounded text-sm transition-colors ${
+                      yearFilter === String(year)
+                        ? "bg-primary text-white"
+                        : "bg-white text-foreground border border-border hover:border-primary"
+                    }`}
+                  >
+                    {year}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 

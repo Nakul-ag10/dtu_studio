@@ -9,12 +9,15 @@ export default function Navbar() {
 
   const navLinks = [
     { path: "/", label: "Home" },
+    { path: "/team", label: "People" },
     { path: "/month-in-pictures", label: "Month in Pictures" },
     { path: "/press-coverage", label: "Press Coverage" },
-    { path: "/press-release", label: "Press Release" },
-    { path: "/press-conferences", label: "Press Conferences" },
     { path: "/social-media", label: "Social Media" },
-    { path: "/team", label: "Team" },
+    { path: "/services", label: "Studio Services" },
+    { path: "/studio-team", label: "Studio Team" },
+    { path: "/studio-charges", label: "Studio Charges" },
+    { path: "/press-conferences", label: "Press Conferences" },
+    { path: "/press-release", label: "Press Release" },
     { path: "/contact", label: "Contact" },
   ];
 
@@ -29,13 +32,13 @@ export default function Navbar() {
               {/* <span className="text-white font-bold">DTU</span> */}
               <img src="dtu-logo.webp" alt="LOGO" />
             </div>
-            <div className="hidden sm:block">
+            <div className="">
               <div className="text-lg font-semibold text-foreground">DTU Studio</div>
               <div className="text-xs text-muted-foreground">Media Cell</div>
             </div>
           </Link>
 
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden lg:flex items-center">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
