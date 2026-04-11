@@ -14,6 +14,13 @@ import StudioTeam from "./pages/StudioTeam";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Test from "./pages/Test";
+import Login from "./pages/Login";
+import Admin from "./pages/Admin";
+import AdminMonthInPictures from "./pages/admin/AdminMonthInPictures"
+import AdminPressConferences from "./pages/admin/AdminPressConferences";
+import AdminPressCoverages from "./pages/admin/AdminPressCoverages";
+import AdminPressReleases from "./pages/admin/AdminPressReleases";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +39,47 @@ export const router = createBrowserRouter([
       { path: "studio-charges", Component: StudioCharges },
       { path: "studio-team", Component: StudioTeam },
       { path: "contact", Component: Contact },
+      { path: "login", Component: Login },
+      {
+        path: "admin",
+        element: (
+          <ProtectedRoute>
+            <Admin />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "admin/month-in-pictures",
+        element: (
+          <ProtectedRoute>
+            <AdminMonthInPictures />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "admin/press-conferences",
+        element: (
+          <ProtectedRoute>
+            <AdminPressConferences />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "admin/press-coverages",
+        element: (
+          <ProtectedRoute>
+            <AdminPressCoverages />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "admin/press-releases",
+        element: (
+          <ProtectedRoute>
+            <AdminPressReleases />
+          </ProtectedRoute>
+        ),
+      },
       { path: "*", Component: NotFound },
       { path: "test", Component: Test}
     ],

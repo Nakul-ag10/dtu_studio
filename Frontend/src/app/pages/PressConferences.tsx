@@ -1,53 +1,21 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { Play, Calendar } from "lucide-react";
+import { useData } from "../contexts/DataContext";
 
 export default function PressConferences() {
+  const { pressConferences } = useData();
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
 
-  // Videos from DTU Delhi YouTube channel: https://www.youtube.com/channel/UCZqfUb0w7w0NPsTx7I7RtsQ
-  const videos = [
-    {
-      id: "1",
-      videoId: "BLunEdRraqY", // Placeholder - replace with actual DTU video IDs
-      title: "3rd National Conference on Social Responsibilies",
-      date: "March 2026",
-      thumbnail: `https://img.youtube.com/vi/BLunEdRraqY/maxresdefault.jpg`,
-      duration: "45:30"
-    },
-    {
-      id: "2",
-      videoId: "ZoD3tLLbO-8",
-      title: "Republic Day 2026",
-      date: "February 2026",
-      thumbnail: `https://img.youtube.com/vi/ZoD3tLLbO-8/maxresdefault.jpg`,
-      duration: "28:15"
-    },
-    {
-      id: "3",
-      videoId: "j0cit5XHm70",
-      title: "Entangles Podcast - 15",
-      date: "February 2026",
-      thumbnail: `https://img.youtube.com/vi/j0cit5XHm70/maxresdefault.jpg`,
-      duration: "15:45"
-    },
-    {
-      id: "4",
-      videoId: "BLunEdRraqY",
-      title: "International Collaboration Announcement",
-      date: "January 2026",
-      thumbnail: `https://img.youtube.com/vi/BLunEdRraqY/maxresdefault.jpg`,
-      duration: "22:10"
-    },
-    {
-      id: "5",
-      videoId: "dQw4w9WgXcQ",
-      title: "Placement Season 2025-26 - Results and Insights",
-      date: "January 2026",
-      thumbnail: `https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg`,
-      duration: "32:50"
-    }
-  ];
+  // Convert press conferences to video format
+  const videos = pressConferences.map(conf => ({
+    id: conf.id.toString(),
+    videoId: conf.youtubeLink.split('v=')[1] || conf.youtubeLink.split('/').pop() || '',
+    title: conf.title,
+    date: new Date(conf.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long' }),
+    thumbnail: `https://img.youtube.com/vi/${conf.youtubeLink.split('v=')[1] || conf.youtubeLink.split('/').pop() || ''}/maxresdefault.jpg`,
+    duration: "00:00" // Placeholder, could be added to data model later
+  }));
 
   return (
     <div className="min-h-screen bg-secondary/20">

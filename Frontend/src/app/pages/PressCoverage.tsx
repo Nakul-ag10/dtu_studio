@@ -2,75 +2,27 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import { Calendar, Filter, ExternalLink } from "lucide-react";
 import { useMemo } from "react";
+import { useData } from "../contexts/DataContext";
 
 export default function PressCoverage() {
+  const { pressCoverages } = useData();
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [monthFilter, setMonthFilter] = useState("all");
   const [yearFilter, setYearFilter] = useState("all");
 
-  // Mock data - API DATA HERE
-  const newsItems = [
-    {
-      id: 1,
-      title: "DTU Students Win National Innovation Challenge",
-      source: "The Times of India",
-      date: "March 15, 2024",
-      year: 2024,
-      month: "March",
-      category: "Achievement",
-      thumbnail: "img2505.png",
-      summary: "DTU team secures first place in national-level innovation competition with groundbreaking AI solution.",
-      link: "#"
-    },
-    {
-      id: 2,
-      title: "Research Breakthrough in Renewable Energy",
-      source: "Hindustan Times",
-      date: "March 10, 2023",
-      year: 2023,
-      month: "March",
-      category: "Research",
-      thumbnail: "img2504.png",
-      summary: "DTU researchers develop efficient solar panel technology with 40% improved energy conversion.",
-      link: "#"
-    },
-    {
-      id: 3,
-      title: "DTU Hosts International Tech Summit 2026",
-      source: "Indian Express",
-      date: "February 28, 2026",
-      year: 2026,
-      month: "February",
-      category: "Event",
-      thumbnail: "img2503.png",
-      summary: "Three-day international summit brings together industry leaders and academia for technology discourse.",
-      link: "#"
-    },
-    {
-      id: 4,
-      title: "Startup Incubator Launches 10 New Ventures",
-      source: "Business Standard",
-      date: "February 20, 2026",
-      year: 2026,
-      month: "February",
-      category: "Entrepreneurship",
-      thumbnail: "img2502.png",
-      summary: "DTU's incubation center celebrates successful launch of 10 student-led startups.",
-      link: "#"
-    },
-    {
-      id: 5,
-      title: "Cultural Festival Sets New Attendance Record",
-      source: "Delhi Times",
-      date: "February 15, 2026",
-      year: 2026,
-      month: "February",
-      category: "Culture",
-      thumbnail: "img2501.png",
-      summary: "Annual cultural fest attracts over 15,000 participants from across the country.",
-      link: "#"
-    }
-  ];
+  // Convert press coverages to news items format
+  const newsItems = pressCoverages.map(coverage => ({
+    id: coverage.id,
+    title: coverage.title,
+    source: coverage.source,
+    date: new Date(coverage.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+    year: new Date(coverage.date).getFullYear(),
+    month: new Date(coverage.date).toLocaleDateString('en-US', { month: 'long' }),
+    category: "News", // Default category
+    thumbnail: "img2505.png", // Default thumbnail
+    summary: coverage.title, // Use title as summary
+    link: coverage.link
+  }));
 
   const categories = ["all", "Achievement", "Research", "Event", "Entrepreneurship", "Culture", "Partnership"];
   const months = Array.from(new Set(newsItems.map((item) => item.month))).sort((a, b) => {

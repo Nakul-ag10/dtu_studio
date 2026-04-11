@@ -1,8 +1,10 @@
 import { useMemo, useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { ChevronLeft, ChevronRight, Calendar } from "lucide-react";
+import { useData } from "../contexts/DataContext";
 
 export default function MonthInPictures() {
+  const { monthInPictures } = useData();
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [selectedMonth, setSelectedMonth] = useState<number | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -11,48 +13,7 @@ export default function MonthInPictures() {
     setCurrentImageIndex(0);
   }, [selectedMonth]);
 
-  const monthsData = [
-    {
-      id: 1,
-      month: "March 2026",
-      year: 2026,
-      thumbnail: "img2501.png",
-      imageCount: 45,
-      images: ["img2501.png", "img2501.png", "img2501.png", "img2501.png", "img2501.png"],
-    },
-    {
-      id: 2,
-      month: "February 2026",
-      year: 2026,
-      thumbnail: "img2502.png",
-      imageCount: 38,
-      images: ["img2502.png", "img2502.png", "img2502.png", "img2502.png"],
-    },
-    {
-      id: 3,
-      month: "January 2026",
-      year: 2026,
-      thumbnail: "img2503.png",
-      imageCount: 52,
-      images: ["img2503.png", "img2503.png", "img2503.png", "img2503.png", "img2503.png", "img2503.png"],
-    },
-    {
-      id: 4,
-      month: "December 2025",
-      year: 2025,
-      thumbnail: "img2504.png",
-      imageCount: 41,
-      images: ["img2504.png", "img2504.png", "img2504.png"],
-    },
-    {
-      id: 5,
-      month: "November 2025",
-      year: 2025,
-      thumbnail: "img2505.png",
-      imageCount: 36,
-      images: ["img2504.png", "img2504.png"],
-    },
-  ];
+  const monthsData = monthInPictures;
 
   const years = useMemo(() => {
     return Array.from(new Set(monthsData.map((item) => item.year))).sort((a, b) => b - a);

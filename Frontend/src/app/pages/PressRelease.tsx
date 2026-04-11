@@ -2,82 +2,38 @@ import { useState, useMemo } from "react";
 import { Link } from "react-router";
 import { motion } from "motion/react";
 import { Calendar, Download, FileText, Filter } from "lucide-react";
+import { useData } from "../contexts/DataContext";
 
 export default function PressRelease() {
+  const { pressReleases } = useData();
   const [monthFilter, setMonthFilter] = useState("all");
   const [yearFilter, setYearFilter] = useState("all");
 
-  // Mock data - API DATA HERE
-  const pressReleases = [
-    {
-      id: 1,
-      title: "DTU Announces New Center for Artificial Intelligence Excellence",
-      date: "March 20, 2026",
-      year: 2026,
-      month: "March",
-      thumbnail: "img2501.png",
-      summary: "Delhi Technological University is proud to announce the establishment of a state-of-the-art Center for Artificial Intelligence Excellence, set to become a leading research hub in AI innovation.",
-      fullContent: "Delhi Technological University is proud to announce the establishment of a state-of-the-art Center for Artificial Intelligence Excellence. This new facility will serve as a leading research hub for AI innovation, bringing together faculty, students, and industry partners to advance the field of artificial intelligence. The center will focus on cutting-edge research in machine learning, natural language processing, computer vision, and robotics. With an investment of ₹50 crores, the center will feature advanced computing infrastructure, dedicated research labs, and collaborative spaces designed to foster innovation and interdisciplinary work. The center aims to produce high-impact research, develop industry-relevant AI solutions, and train the next generation of AI experts. It will also host conferences, workshops, and training programs to promote knowledge sharing and collaboration within the AI community. This initiative underscores DTU's commitment to academic excellence and its vision to be at the forefront of technological advancements in India and globally.",
-      pdfLink: "#"
-    },
-    {
-      id: 2,
-      title: "Record Placement Season: 95% Students Placed with Top Packages",
-      date: "March 5, 2026",
-      year: 2026,
-      month: "March",
-      thumbnail: "img2502.png",
-      summary: "DTU achieves remarkable success in placement season 2025-26 with 95% placement rate and highest domestic package of ₹1.2 crores per annum.",
-      fullContent: "Delhi Technological University has recorded its most successful placement season to date, with 95% of eligible students securing positions across leading companies. The placement drive saw participation from over 200 companies, including top technology firms, consulting groups, and financial institutions. The highest domestic package stood at ₹1.2 crores per annum, while the average package increased by 15% compared to the previous year. This achievement reflects DTU's commitment to academic excellence and industry-relevant education, preparing students for successful careers in their chosen fields.",
-      pdfLink: "#"
-    },
-    {
-      id: 3,
-      title: "DTU Collaborates with Leading European Universities for Joint Research Program",
-      date: "February 18, 2026",
-      year: 2026,
-      month: "February",
-      thumbnail: "img2503.png",
-      summary: "Strategic partnership established with five premier European institutions to facilitate student exchange and collaborative research initiatives.",
-      fullContent: "Delhi Technological University has entered into a strategic collaboration with five premier European universities to establish joint research programs and student exchange initiatives. This partnership will enable DTU students and faculty to participate in cutting-edge research projects, access world-class facilities, and engage in cultural exchange. The collaboration covers multiple disciplines including engineering, technology, management, and applied sciences. Students will have opportunities for semester-long exchanges, joint degree programs, and international internships, enhancing their global perspectives and professional networks.",
-      pdfLink: "#"
-    },
-    {
-      id: 4,
-      title: "Launch of Innovation and Entrepreneurship Development Cell",
-      date: "February 1, 2026",
-      year: 2026,
-      month: "February",
-      thumbnail: "img2504.png",
-      summary: "New initiative to support student entrepreneurs with mentorship, funding, and infrastructure for startup development.",
-      fullContent: "DTU announces the launch of its Innovation and Entrepreneurship Development Cell, a comprehensive initiative designed to nurture the entrepreneurial spirit among students and faculty. The cell will provide aspiring entrepreneurs with mentorship from industry experts, access to seed funding, co-working spaces, and legal support for business incorporation. The program includes workshops, networking events, and pitch competitions to help students transform their innovative ideas into successful ventures. With an initial corpus of ₹10 crores, the cell aims to incubate at least 50 startups over the next three years.",
-      pdfLink: "#"
-    },
-    {
-      id: 5,
-      title: "Research Paper by DTU Faculty Published in Nature",
-      date: "January 15, 2026",
-      year: 2026,
-      month: "January",
-      thumbnail: "img2505.png",
-      summary: "Groundbreaking research on sustainable materials by DTU faculty team featured in prestigious international journal.",
-      fullContent: "A team of faculty members from DTU's Department of Applied Chemistry has achieved a significant milestone with their research paper published in Nature, one of the world's most prestigious scientific journals. The research presents a novel approach to developing sustainable materials using bio-based polymers, with potential applications in packaging, construction, and medical devices. This publication highlights DTU's growing reputation in cutting-edge research and its contribution to addressing global sustainability challenges. The research was funded by the Department of Science and Technology and conducted in collaboration with international research institutions.",
-      pdfLink: "#"
-    }
-  ];
+  // Convert press releases to the expected format
+  const releases = pressReleases.map(release => ({
+    id: release.id,
+    title: release.title,
+    date: new Date(release.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+    year: new Date(release.date).getFullYear(),
+    month: new Date(release.date).toLocaleDateString('en-US', { month: 'long' }),
+    thumbnail: "img2501.png", // Default thumbnail
+    summary: release.content.substring(0, 200) + "...",
+    fullContent: release.content,
+    pdfLink: "#" // Placeholder
+  }));
 
   const months = useMemo(() => {
-    return Array.from(new Set(pressReleases.map((item) => item.month))).sort((a, b) => {
+    return Array.from(new Set(releases.map((item) => item.month))).sort((a, b) => {
       const order = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
       return order.indexOf(a) - order.indexOf(b);
     });
-  }, [pressReleases]);
+  }, [releases]);
 
   const years = useMemo(() => {
-    return Array.from(new Set(pressReleases.map((item) => item.year))).sort((a, b) => b - a);
-  }, [pressReleases]);
+    return Array.from(new Set(releases.map((item) => item.year))).sort((a, b) => b - a);
+  }, [releases]);
 
-  const filteredReleases = pressReleases.filter((release) => {
+  const filteredReleases = releases.filter((release) => {
     const monthMatches = monthFilter === "all" || release.month === monthFilter;
     const yearMatches = yearFilter === "all" || release.year === Number(yearFilter);
     return monthMatches && yearMatches;
