@@ -81,13 +81,17 @@ export default function Test() {
 
   return (
     <div className="min-h-screen bg-secondary/20">
-      <div className="bg-primary text-white py-16">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
+      <div
+        className="relative overflow-hidden text-white py-16 bg-cover bg-center"
+        style={{ backgroundImage: "url('/campus.webp')" }}
+      >
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <h1 className="mb-4">Month in Pictures</h1>
+            <h1 className="mb-4 text-3xl">Month in Pictures</h1>
             <p className="text-lg text-white/90 max-w-3xl">
               A curated photographic record of campus life, events, and milestones — month by month.
               </p>

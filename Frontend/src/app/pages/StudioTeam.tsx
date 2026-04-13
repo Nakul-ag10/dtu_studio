@@ -1,24 +1,24 @@
 import { motion } from "motion/react";
-import { Mail, Phone, Camera, Video, Palette, Megaphone } from "lucide-react";
+import { Mail, Phone, Camera, Video, Palette, Megaphone, Pen } from "lucide-react";
 
 export default function StudioTeam() {
   const studioTeam = [
     {
-      name: "Rahul Sharma",
-      role: "Senior Photographer",
-      designation: "Lead Photographer",
-      image: "img2501.png",
+      name: "Mr. Hariom Dwivedi",
+      role: "Content Writer/Digital Content Creator",
+      designation: "Content Writer/Digital Content Creator",
+      image: "Mr.HDwivedi.png",
       email: "rahul.sharma@dtu.ac.in",
       phone: "+91-9876543210",
       specialization: "Event & Portrait Photography",
       experience: "5+ years",
-      icon: Camera
+      icon: Pen
     },
     {
-      name: "Priya Singh",
+      name: "Mr. Mohd. Anees",
       role: "Videographer",
-      designation: "Video Production Lead",
-      image: "img2502.png",
+      designation: "Video Editor, Media Manager",
+      image: "Mr.MAnees.png",
       email: "priya.singh@dtu.ac.in",
       phone: "+91-9876543211",
       specialization: "Event Videography & Editing",
@@ -26,10 +26,10 @@ export default function StudioTeam() {
       icon: Video
     },
     {
-      name: "Arjun Kumar",
+      name: "Ms. Parvathi Nair",
       role: "Graphic Designer",
-      designation: "Creative Designer",
-      image: "img2503.png",
+      designation: "Content Writer",
+      image: "Ms.PNair.png",
       email: "arjun.kumar@dtu.ac.in",
       phone: "+91-9876543212",
       specialization: "Digital Design & Branding",
@@ -37,10 +37,10 @@ export default function StudioTeam() {
       icon: Palette
     },
     {
-      name: "Sneha Patel",
-      role: "Social Media Manager",
-      designation: "Digital Media Coordinator",
-      image: "img2504.png",
+      name: "Mr. Sushil Kumar",
+      role: "Sr. Cameraman",
+      designation: "Sr. Cameraman",
+      image: "Mr.SKumar.png",
       email: "sneha.patel@dtu.ac.in",
       phone: "+91-9876543213",
       specialization: "Content Strategy & Management",
@@ -48,10 +48,10 @@ export default function StudioTeam() {
       icon: Megaphone
     },
     {
-      name: "Vikram Rao",
+      name: "Mr. Naresh Nautiyal",
       role: "Event Photographer",
-      designation: "Campus Events Specialist",
-      image: "img2505.png",
+      designation: "Cameraman",
+      image: "Mr.Nautiyal.png",
       email: "vikram.rao@dtu.ac.in",
       phone: "+91-9876543214",
       specialization: "Campus Events & Sports",
@@ -59,49 +59,32 @@ export default function StudioTeam() {
       icon: Camera
     },
     {
-      name: "Ananya Gupta",
+      name: "Mr. Naveen Kumar",
       role: "Video Editor",
-      designation: "Post-Production Specialist",
-      image: "img2501.png",
+      designation: "MTS (Spec: Cameras & Tool Management)",
+      image: "Mr.NKumar.png",
       email: "ananya.gupta@dtu.ac.in",
       phone: "+91-9876543215",
       specialization: "Video Editing & Color Grading",
       experience: "3+ years",
       icon: Video
     },
-    {
-      name: "Karan Mehta",
-      role: "Content Writer",
-      designation: "Communications Specialist",
-      image: "img2502.png",
-      email: "karan.mehta@dtu.ac.in",
-      phone: "+91-9876543216",
-      specialization: "Press Releases & Blog Writing",
-      experience: "2+ years",
-      icon: Megaphone
-    },
-    {
-      name: "Neha Jain",
-      role: "Studio Assistant",
-      designation: "Technical Support",
-      image: "img2503.png",
-      email: "neha.jain@dtu.ac.in",
-      phone: "+91-9876543217",
-      specialization: "Equipment Management & Support",
-      experience: "2+ years",
-      icon: Camera
-    }
+    
   ];
 
   return (
     <div className="min-h-screen bg-secondary/20">
-      <div className="bg-primary text-white py-16">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
+      <div
+        className="relative overflow-hidden text-white py-16 bg-cover bg-center"
+        style={{ backgroundImage: "url('/campus.webp')" }}
+      >
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <h1 className="mb-4">Studio Team</h1>
+            <h1 className="mb-4 text-3xl">Studio Team</h1>
             <p className="text-lg text-white/90 max-w-3xl">
               Meet our talented team of photographers, videographers, designers, and media professionals dedicated to capturing DTU's story.
             </p>
@@ -149,10 +132,10 @@ export default function StudioTeam() {
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                     <div className="flex-1">
                       <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
-                      <p className="text-primary font-medium mb-2">{member.designation}</p>
-                      <p className="text-muted-foreground mb-3">{member.role}</p>
+                      {/* <p className="text-primary font-medium mb-2">{member.designation}</p> */}
+                      {/* <p className="text-muted-foreground mb-3">{member.role}</p> */}
 
-                      <div className="space-y-2 text-sm">
+                      {/* <div className="space-y-2 text-sm">
                         <div className="flex items-center gap-2">
                           <span className="font-medium text-muted-foreground w-20">Specialty:</span>
                           <span>{member.specialization}</span>
@@ -161,24 +144,13 @@ export default function StudioTeam() {
                           <span className="font-medium text-muted-foreground w-20">Experience:</span>
                           <span>{member.experience}</span>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
 
                     <div className="flex flex-col gap-2">
-                      <a
-                        href={`mailto:${member.email}`}
-                        className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
-                      >
-                        <Mail size={16} />
-                        <span className="truncate">{member.email}</span>
-                      </a>
-                      <a
-                        href={`tel:${member.phone}`}
-                        className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
-                      >
-                        <Phone size={16} />
-                        <span>{member.phone}</span>
-                      </a>
+                      
+                      <p className="text-primary font-medium mb-2">{member.designation}</p>
+                      
                     </div>
                   </div>
                 </div>

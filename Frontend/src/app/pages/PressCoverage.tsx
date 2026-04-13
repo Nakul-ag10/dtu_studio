@@ -19,7 +19,7 @@ export default function PressCoverage() {
     year: new Date(coverage.date).getFullYear(),
     month: new Date(coverage.date).toLocaleDateString('en-US', { month: 'long' }),
     category: "News", // Default category
-    thumbnail: "img2505.png", // Default thumbnail
+    thumbnail: coverage.thumbnail || "img2505.png",
     summary: coverage.title, // Use title as summary
     link: coverage.link
   }));
@@ -41,13 +41,17 @@ export default function PressCoverage() {
   });
   return (
     <div className="min-h-screen bg-secondary/20">
-      <div className="bg-primary text-white py-16">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
+      <div
+        className="relative overflow-hidden text-white py-16 bg-cover bg-center"
+        style={{ backgroundImage: "url('/campus.webp')" }}
+      >
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <h1 className="mb-4">Press Coverage</h1>
+            <h1 className="mb-4 text-3xl">Press Coverage</h1>
             <p className="text-lg text-white/90 max-w-3xl">
               How India's leading publications are covering Delhi Technological University.
             </p>
@@ -60,27 +64,9 @@ export default function PressCoverage() {
 
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] py-12">
         <div className="mb-8 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <Filter size={20} />
-            <span>Filter by category:</span>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setCategoryFilter(category)}
-                className={`px-4 py-2 rounded text-sm transition-colors ${
-                  categoryFilter === category
-                    ? "bg-primary text-white"
-                    : "bg-white text-foreground border border-border hover:border-primary"
-                }`}
-              >
-                {category === "all" ? "All" : category}
-              </button>
-            ))}
-          </div>
+          
 
-          <div className="flex flex-col gap-3 lg:items-end">
+          <div className="flex flex-col gap-3 lg:items-start">
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-muted-foreground">Filter by month:</span>
               <div className="flex flex-wrap gap-2">
@@ -157,9 +143,7 @@ export default function PressCoverage() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute top-3 left-3">
-                  <span className="px-2 py-1 bg-primary text-white text-xs rounded">
-                    {item.category}
-                  </span>
+                  
                 </div>
               </div>
               <div className="p-5">

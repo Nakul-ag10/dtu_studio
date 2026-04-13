@@ -15,17 +15,21 @@ export default function AdminPressCoverages() {
   const [editingItem, setEditingItem] = useState<PressCoverageItem | null>(null);
   const [formData, setFormData] = useState({
     title: '',
+    summary: '',
     source: '',
     date: '',
     link: '',
+    thumbnail: '',
   });
 
   const resetForm = () => {
     setFormData({
       title: '',
+      summary: '',
       source: '',
       date: '',
       link: '',
+      thumbnail: '',
     });
     setEditingItem(null);
   };
@@ -47,9 +51,11 @@ export default function AdminPressCoverages() {
     setEditingItem(item);
     setFormData({
       title: item.title,
+      summary: item.summary,
       source: item.source,
       date: item.date,
       link: item.link,
+      thumbnail: item.thumbnail || '',
     });
     setIsAddDialogOpen(true);
   };
@@ -123,6 +129,15 @@ export default function AdminPressCoverages() {
                   required
                 />
               </div>
+              <div>
+                <Label htmlFor="thumbnail">Thumbnail URL</Label>
+                <Input
+                  id="thumbnail"
+                  value={formData.thumbnail}
+                  onChange={(e) => setFormData({ ...formData, thumbnail: e.target.value })}
+                  placeholder="img2505.png or /images/your-image.jpg"
+                />
+              </div>
               <div className="flex justify-end space-x-2">
                 <Button type="button" variant="outline" onClick={() => setIsAddDialogOpen(false)}>
                   Cancel
@@ -145,6 +160,7 @@ export default function AdminPressCoverages() {
               <TableRow>
                 <TableHead>Title</TableHead>
                 <TableHead>Source</TableHead>
+                <TableHead>Thumbnail</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead>Link</TableHead>
                 <TableHead>Actions</TableHead>
@@ -155,6 +171,17 @@ export default function AdminPressCoverages() {
                 <TableRow key={item.id}>
                   <TableCell>{item.title}</TableCell>
                   <TableCell>{item.source}</TableCell>
+                  <TableCell>
+                    {item.thumbnail ? (
+                      <img
+                        src={item.thumbnail}
+                        alt={`${item.title} thumbnail`}
+                        className="h-12 w-20 object-cover rounded"
+                      />
+                    ) : (
+                      <span className="text-sm text-muted-foreground">None</span>
+                    )}
+                  </TableCell>
                   <TableCell>{new Date(item.date).toLocaleDateString()}</TableCell>
                   <TableCell>
                     <a

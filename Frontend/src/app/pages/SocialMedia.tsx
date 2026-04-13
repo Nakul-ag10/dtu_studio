@@ -1,51 +1,63 @@
 import { motion } from "motion/react";
-import { Instagram, Twitter, Linkedin, Youtube, ExternalLink } from "lucide-react";
+import { Instagram, Twitter, Linkedin, Youtube, ExternalLink, X, XIcon, FacebookIcon, Facebook } from "lucide-react";
 
 export default function SocialMedia() {
   const socialPlatforms = [
     {
       name: "Instagram",
-      handle: "@dtumedia",
+      handle: "@dtu.delhi",
       icon: Instagram,
       color: "bg-gradient-to-br from-purple-600 via-pink-600 to-orange-500",
-      link: "https://instagram.com",
+      link: "https://www.instagram.com/dtu.delhi/?hl=en",
       description: "Visual stories from campus life"
     },
     {
       name: "Twitter",
-      handle: "@DTU_Media",
-      icon: Twitter,
+      handle: "@dtu_delhi",
+      icon: X,
       color: "bg-[#1DA1F2]",
-      link: "https://twitter.com",
+      link: "https://x.com/dtu_delhi",
       description: "Real-time updates and announcements"
     },
     {
       name: "LinkedIn",
-      handle: "DTU Media Cell",
+      handle: "PRO, DELHI TECHNOLOGICAL UNIVERSITY",
       icon: Linkedin,
       color: "bg-[#0A66C2]",
-      link: "https://linkedin.com",
+      link: "https://www.linkedin.com/in/pro-delhi-technological-university-delhi-397129209/",
       description: "Professional network and achievements"
     },
     {
       name: "YouTube",
-      handle: "DTU Delhi",
+      handle: "@dtustudio",
       icon: Youtube,
       color: "bg-[#FF0000]",
-      link: "https://www.youtube.com/channel/UCZqfUb0w7w0NPsTx7I7RtsQ",
+      link: "https://www.youtube.com/@dtustudio",
       description: "Video coverage and documentaries"
+    },
+    {
+      name: "Facebook",
+      handle: "DTU_Official",
+      icon: Facebook,
+      color: "bg-[#1DA1F2]",
+      link: "https://www.facebook.com/profile.php?id=100065103819173",
+      description: "Community engagement and event highlights"
     }
   ];
 
   return (
     <div className="min-h-screen bg-secondary/20">
-      <div className="bg-primary text-white py-16">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
+      <div
+        className="relative overflow-hidden text-white py-16 bg-cover bg-center"
+        style={{ backgroundImage: "url('/campus.webp')" }}
+      >
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <h1 className="mb-4">Connect With Us</h1>
+            <h1 className="mb-4 text-3xl">Connect With Us</h1>
             <p className="text-lg text-white/90 max-w-3xl">
               Follow DTU Media Cell on social media for the latest updates, behind-the-scenes content, and campus highlights
             </p>

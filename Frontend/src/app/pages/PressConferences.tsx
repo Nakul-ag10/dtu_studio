@@ -19,13 +19,17 @@ export default function PressConferences() {
 
   return (
     <div className="min-h-screen bg-secondary/20">
-      <div className="bg-primary text-white py-16">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
+      <div
+        className="relative overflow-hidden text-white py-16 bg-cover bg-center"
+        style={{ backgroundImage: "url('/campus.webp')" }}
+      >
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <h1 className="mb-4">Press Conferences</h1>
+            <h1 className="mb-4 text-3xl">Press Conferences</h1>
             <p className="text-lg text-white/90 max-w-3xl">
               Watch official press conferences, panel discussions and media briefings by Delhi Technological University.
             </p>
@@ -55,9 +59,9 @@ export default function PressConferences() {
                     <Play className="text-primary ml-1" size={28} fill="currentColor" />
                   </div>
                 </div>
-                <div className="absolute bottom-2 right-2 px-2 py-1 bg-black/80 text-white text-xs rounded">
+                {/* <div className="absolute bottom-2 right-2 px-2 py-1 bg-black/80 text-white text-xs rounded">
                   {video.duration}
-                </div>
+                </div> */}
               </div>
               <div className="p-4">
                 <div className="flex items-center gap-1 text-sm text-muted-foreground mb-2">

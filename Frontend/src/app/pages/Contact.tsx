@@ -25,24 +25,20 @@ export default function Contact() {
     });
   };
 
-  const collaborationRates = [
-    { service: "Event Photography", rate: "₹5,000 - ₹15,000", duration: "Per Event" },
-    { service: "Event Videography", rate: "₹8,000 - ₹20,000", duration: "Per Event" },
-    { service: "Professional Photoshoot", rate: "₹3,000 - ₹10,000", duration: "Per Session" },
-    { service: "Video Production", rate: "₹15,000 - ₹50,000", duration: "Per Project" },
-    { service: "Social Media Content", rate: "₹2,000 - ₹8,000", duration: "Per Campaign" },
-    { service: "Graphic Design", rate: "₹1,500 - ₹5,000", duration: "Per Design" }
-  ];
 
   return (
     <div className="min-h-screen bg-secondary/20">
-      <div className="bg-primary text-white py-16">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
+      <div
+        className="relative overflow-hidden text-white py-16 bg-cover bg-center"
+        style={{ backgroundImage: "url('/campus.webp')" }}
+      >
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <h1 className="mb-4">Contact Us</h1>
+            <h1 className="mb-4 text-3xl">Contact Us</h1>
             <p className="text-lg text-white/90 max-w-3xl">
               Get in touch with DTU Media Cell for collaborations, inquiries, or general information
             </p>
@@ -62,8 +58,8 @@ export default function Contact() {
             </div>
             <h3 className="mb-2">Email</h3>
             <p className="text-sm text-muted-foreground mb-2">Send us an email</p>
-            <a href="mailto:mediacell@dtu.ac.in" className="text-primary hover:underline">
-              mediacell@dtu.ac.in
+            <a href="mailto:pro@dtu.ac.in" className="text-primary hover:underline">
+              pro@dtu.ac.in
             </a>
           </motion.div>
 
@@ -180,30 +176,14 @@ export default function Contact() {
                 <div>
                   <h3 className="mb-2">Visit Us</h3>
                   <p className="text-muted-foreground">
+                    Media Cell, Administrative Block, <br/>
                     Delhi Technological University<br />
                     Shahbad Daulatpur, Main Bawana Road<br />
                     Delhi - 110042, India
                   </p>
                 </div>
               </div>
-            </div>
-
-            <div className="bg-white rounded-lg p-8 border border-border">
-              <h3 className="mb-6">Collaboration Charges</h3>
-              <div className="space-y-4">
-                {collaborationRates.map((item, index) => (
-                  <div key={index} className="pb-4 border-b border-border last:border-0 last:pb-0">
-                    <div className="flex justify-between items-start mb-1">
-                      <span className="font-medium">{item.service}</span>
-                      <span className="text-primary font-semibold">{item.rate}</span>
-                    </div>
-                    <span className="text-sm text-muted-foreground">{item.duration}</span>
-                  </div>
-                ))}
-              </div>
-              <p className="mt-6 text-sm text-muted-foreground">
-                * Rates are indicative and may vary based on project scope and requirements. Contact us for detailed quotations.
-              </p>
+              <div className="w-full mt-5 border-2"><iframe width="100%" height="600" scrolling="no" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Administration%20Block,%20Delhi%20Technological%20University+(Media%20Cell,%20Delhi%20Technological%20University)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.mapsdirections.info/pl/mapa-populacji/">mapa populacji świata online</a></iframe></div>
             </div>
           </motion.div>
         </div>

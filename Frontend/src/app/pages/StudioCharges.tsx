@@ -5,145 +5,57 @@ export default function StudioCharges() {
   const pricingCategories = [
     {
       icon: Camera,
-      title: "Photography Services",
+      title: "Base Rent",
       services: [
         {
-          name: "Event Photography (Half Day)",
-          duration: "4-6 hours",
-          price: "₹15,000",
-          includes: ["2 Professional Photographers", "High-resolution images", "Basic editing", "Online gallery"]
+          name: "Rent on Hourly Basis",
+          duration: "1-hour",
+          price: "₹1,500/hr",
+          // includes: ["2 Professional Photographers", "High-resolution images", "Basic editing", "Online gallery"]
         },
         {
-          name: "Event Photography (Full Day)",
-          duration: "8+ hours",
-          price: "₹25,000",
-          includes: ["2 Professional Photographers", "High-resolution images", "Advanced editing", "Online gallery", "Print release"]
-        },
-        {
-          name: "Portrait Session",
-          duration: "2 hours",
+          name: "Rent For a Day (10:00 AM - 5:00 PM)",
+          duration: "7 hours",
           price: "₹8,000",
-          includes: ["Professional photographer", "Multiple looks", "High-resolution images", "Basic retouching"]
-        },
-        {
-          name: "Product Photography",
-          duration: "Per session",
-          price: "₹12,000",
-          includes: ["Studio setup", "Professional lighting", "Multiple angles", "Basic editing"]
+          // includes: ["2 Professional Photographers", "High-resolution images", "Advanced editing", "Online gallery", "Print release"]
         }
+        
       ]
     },
     {
       icon: Video,
-      title: "Videography Services",
+      title: "Honorarium for 2 Cameramen",
       services: [
         {
-          name: "Event Videography (Half Day)",
-          duration: "4-6 hours",
-          price: "₹20,000",
+          name: "Rent on Hourly Basis",
+          duration: "1-hour",
+          price: "₹500/hr",
           includes: ["2 Person crew", "4K recording", "Basic editing", "Raw footage delivery"]
         },
         {
-          name: "Event Videography (Full Day)",
-          duration: "8+ hours",
-          price: "₹35,000",
+          name: "Rent for a Day (10:00 AM - 5:00 PM)",
+          duration: "7 hours",
+          price: "₹2,700",
           includes: ["2 Person crew", "4K recording", "Professional editing", "Color grading", "Multiple formats"]
         },
-        {
-          name: "Promotional Video",
-          duration: "Project based",
-          price: "₹50,000 - ₹1,50,000",
-          includes: ["Pre-production planning", "Professional shooting", "Advanced editing", "Sound design", "Multiple deliverables"]
-        },
-        {
-          name: "Interview Production",
-          duration: "Per interview",
-          price: "₹15,000",
-          includes: ["Professional setup", "Lighting & sound", "Basic editing", "Multiple formats"]
-        }
+        
       ]
     },
     {
       icon: Palette,
-      title: "Design Services",
+      title: "Total",
       services: [
         {
-          name: "Graphic Design (Basic)",
-          duration: "Per design",
-          price: "₹5,000",
+          name: "Rent on Hourly Basis",
+          duration: "Min 2 hrs",
+          price: "₹2000/hr",
           includes: ["2-3 concepts", "2 revisions", "Source files", "Print-ready files"]
         },
         {
-          name: "Brand Identity Package",
-          duration: "Complete package",
-          price: "₹25,000",
+          name: "Rent for a Day (10:00 AM - 5:00 PM)",
+          duration: "7 hours",
+          price: "₹10,700",
           includes: ["Logo design", "Brand guidelines", "Business cards", "Letterhead", "5 revisions"]
-        },
-        {
-          name: "Social Media Graphics",
-          duration: "Per month",
-          price: "₹15,000",
-          includes: ["20 graphics", "Brand consistency", "Multiple formats", "2 revisions each"]
-        },
-        {
-          name: "Brochure/Magazine Design",
-          duration: "Per project",
-          price: "₹20,000",
-          includes: ["Layout design", "Content integration", "Print-ready files", "3 revisions"]
-        }
-      ]
-    },
-    {
-      icon: Users,
-      title: "Event Coverage",
-      services: [
-        {
-          name: "Full Event Coverage",
-          duration: "Per event",
-          price: "₹40,000",
-          includes: ["Photography + Videography", "Live streaming setup", "Social media updates", "Post-event highlights"]
-        },
-        {
-          name: "Live Streaming Setup",
-          duration: "Per event",
-          price: "₹25,000",
-          includes: ["Professional streaming", "Multiple camera angles", "Technical support", "Recording backup"]
-        },
-        {
-          name: "Social Media Management",
-          duration: "Per month",
-          price: "₹30,000",
-          includes: ["Content strategy", "Daily posts", "Community management", "Monthly analytics report"]
-        }
-      ]
-    },
-    {
-      icon: FileText,
-      title: "Content & Training",
-      services: [
-        {
-          name: "Content Writing",
-          duration: "Per 1000 words",
-          price: "₹3,000",
-          includes: ["Research & writing", "SEO optimization", "2 revisions", "Plagiarism check"]
-        },
-        {
-          name: "Press Release Writing",
-          duration: "Per release",
-          price: "₹5,000",
-          includes: ["Professional writing", "Media distribution list", "2 revisions", "Distribution support"]
-        },
-        {
-          name: "Photography Workshop",
-          duration: "Full day",
-          price: "₹8,000",
-          includes: ["Professional instructor", "Equipment provided", "Hands-on training", "Certificate"]
-        },
-        {
-          name: "Video Production Workshop",
-          duration: "Full day",
-          price: "₹10,000",
-          includes: ["Professional instructor", "Equipment provided", "Project work", "Certificate"]
         }
       ]
     }
@@ -151,13 +63,17 @@ export default function StudioCharges() {
 
   return (
     <div className="min-h-screen bg-secondary/20">
-      <div className="bg-primary text-white py-16">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
+      <div
+        className="relative overflow-hidden text-white py-16 bg-cover bg-center"
+        style={{ backgroundImage: "url('/campus.webp')" }}
+      >
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <h1 className="mb-4">Studio Charges</h1>
+            <h1 className="mb-4 text-3xl">Studio Charges</h1>
             <p className="text-lg text-white/90 max-w-3xl">
               Professional rates for DTU Studio services available to external clients, organizations, and businesses.
             </p>
@@ -176,14 +92,11 @@ export default function StudioCharges() {
                 <DollarSign className="text-amber-600" size={24} />
               </div>
               <div>
-                <h3 className="mb-2">Important Notes</h3>
+                <h3 className="mb-2">Important Note</h3>
                 <ul className="text-sm text-muted-foreground space-y-1">
-                  <li>• All prices are exclusive of GST (18%)</li>
-                  <li>• Travel charges may apply for locations outside Delhi</li>
-                  <li>• Rush orders may incur additional charges (25-50%)</li>
-                  <li>• Custom packages available for bulk requirements</li>
-                  <li>• 50% advance payment required to confirm booking</li>
-                  <li>• Cancellation charges: 24-48 hours (50%), less than 24 hours (100%)</li>
+                  <li>• 2 cameramens are necessarily needed for recording</li>
+                  <li>• The deliverables after the recording will be raw unfiltered video of the recording done at our Studio</li>
+                  <li>• For editing services, the honorarium for the editors is Rs. 1000/30 min of edited video delivered to the institution</li>
                 </ul>
               </div>
             </div>
@@ -226,14 +139,14 @@ export default function StudioCharges() {
                             {service.duration}
                           </span>
                         </div>
-                        <ul className="text-sm text-muted-foreground space-y-1 mb-3">
+                        {/* <ul className="text-sm text-muted-foreground space-y-1 mb-3">
                           {service.includes.map((item, itemIndex) => (
                             <li key={itemIndex} className="flex items-center gap-2">
                               <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
                               {item}
                             </li>
                           ))}
-                        </ul>
+                        </ul> */}
                       </div>
                       <div className="lg:text-right">
                         <div className="text-2xl font-bold text-primary">{service.price}</div>
@@ -247,8 +160,8 @@ export default function StudioCharges() {
           ))}
         </div>
 
-        <div className="mt-12 bg-white rounded-lg p-8 border border-border text-center">
-          <h3 className="mb-4">Need a Custom Package?</h3>
+        {/* <div className="mt-12 bg-white rounded-lg p-8 border border-border text-center">
+          <h3 className="mb-4">Need to Contact Us?</h3>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
             We offer customized packages for large events, long-term projects, and specific requirements.
             Contact us for personalized quotes and special pricing.
@@ -267,7 +180,7 @@ export default function StudioCharges() {
               Call for Details
             </a>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

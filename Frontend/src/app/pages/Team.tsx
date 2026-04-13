@@ -7,108 +7,61 @@ export default function Team() {
       category: "Head",
       members: [
         {
-          name: "Dr. ABC",
-          role: "Faculty Coordinator",
+          name: "Dr. Yashna Sharma",
+          role: "Faculty In-Charge (Media Cell)",
           image: "",
-          initials: "DA",
+          initials: "Dr. YS",
           email: "rajesh.kumar@dtu.ac.in",
           linkedin: "#"
         }
       ]
     },
     {
-      category: "Coordinators",
+      category: "Faculty Coordinators",
       members: [
         {
-          name: "XYZ",
-          role: "Student Coordinator - Photography",
+          name: "Dr. Sucheta Sardar",
+          role: "University Promotional Materials/Newsletters",
           image: "",
-          initials: "X",
+          initials: "Dr. SS",
           email: "priya@dtu.ac.in",
           linkedin: "#"
         },
         {
-          name: "Dr. DEF",
-          role: "Student Coordinator - Videography",
+          name: "Dr. Pooja Gupta",
+          role: "Outreach through University Website",
           image: "",
-          initials: "DD",
+          initials: "Dr. PG",
           email: "arjun@dtu.ac.in",
           linkedin: "#"
         },
         {
-          name: "PQR",
-          role: "Student Coordinator - Social Media",
+          name: "Dr. Prama Vishnoi",
+          role: "Online Gift Shop/Mechandise Management",
           image: "",
-          initials: "P",
+          initials: "Dr. PV",
           email: "sneha@dtu.ac.in",
           linkedin: "#"
         }
       ]
     },
-    {
-      category: "Core Team Members",
-      members: [
-        {
-          name: "LMN",
-          role: "Senior Photographer",
-          image: "",
-          initials: "L",
-          email: "rahul@dtu.ac.in",
-          linkedin: "#"
-        },
-        {
-          name: "Dr. GHI",
-          role: "Video Editor",
-          image: "",
-          initials: "DG",
-          email: "ananya@dtu.ac.in",
-          linkedin: "#"
-        },
-        {
-          name: "STU",
-          role: "Content Writer",
-          image: "",
-          initials: "S",
-          email: "vikram@dtu.ac.in",
-          linkedin: "#"
-        },
-        {
-          name: "VWX",
-          role: "Graphic Designer",
-          image: "",
-          initials: "V",
-          email: "neha@dtu.ac.in",
-          linkedin: "#"
-        },
-        {
-          name: "Dr. JKL",
-          role: "Event Photographer",
-          image: "",
-          initials: "DJ",
-          email: "karan@dtu.ac.in",
-          linkedin: "#"
-        },
-        {
-          name: "YZ",
-          role: "Social Media Manager",
-          image: "",
-          initials: "Y",
-          email: "ishita@dtu.ac.in",
-          linkedin: "#"
-        }
-      ]
-    }
   ];
 
   return (
     <div className="min-h-screen bg-secondary/20">
-      <div className="bg-primary text-white py-16">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
+      {/* <div className=" text-white py-16">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]"> */}
+        <div
+        className="relative overflow-hidden text-white py-16 bg-cover bg-center"
+        style={{ backgroundImage: "url('/campus.webp')" }}
+      >
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <h1 className="mb-4">Our Team</h1>
+            <h1 className="mb-4 text-3xl">Faculty</h1>
             <p className="text-lg text-white/90 max-w-3xl">
               Meet the dedicated individuals behind DTU Media Cell who work tirelessly to capture and share our university's story
             </p>

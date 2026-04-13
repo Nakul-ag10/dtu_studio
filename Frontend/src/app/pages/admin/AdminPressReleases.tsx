@@ -18,6 +18,7 @@ export default function AdminPressReleases() {
     title: '',
     date: '',
     content: '',
+    thumbnail: '',
   });
 
   const resetForm = () => {
@@ -25,6 +26,7 @@ export default function AdminPressReleases() {
       title: '',
       date: '',
       content: '',
+      thumbnail: '',
     });
     setEditingItem(null);
   };
@@ -47,8 +49,7 @@ export default function AdminPressReleases() {
     setFormData({
       title: item.title,
       date: item.date,
-      content: item.content,
-    });
+      content: item.content,      thumbnail: item.thumbnail || '',    });
     setIsAddDialogOpen(true);
   };
 
@@ -112,6 +113,15 @@ export default function AdminPressReleases() {
                   required
                 />
               </div>
+              <div>
+                <Label htmlFor="thumbnail">Thumbnail URL</Label>
+                <Input
+                  id="thumbnail"
+                  value={formData.thumbnail}
+                  onChange={(e) => setFormData({ ...formData, thumbnail: e.target.value })}
+                  placeholder="img2501.png or /images/your-image.jpg"
+                />
+              </div>
               <div className="flex justify-end space-x-2">
                 <Button type="button" variant="outline" onClick={() => setIsAddDialogOpen(false)}>
                   Cancel
@@ -134,6 +144,7 @@ export default function AdminPressReleases() {
               <TableRow>
                 <TableHead>Title</TableHead>
                 <TableHead>Date</TableHead>
+                <TableHead>Thumbnail</TableHead>
                 <TableHead>Content Preview</TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>
@@ -143,6 +154,17 @@ export default function AdminPressReleases() {
                 <TableRow key={item.id}>
                   <TableCell>{item.title}</TableCell>
                   <TableCell>{new Date(item.date).toLocaleDateString()}</TableCell>
+                  <TableCell>
+                    {item.thumbnail ? (
+                      <img
+                        src={item.thumbnail}
+                        alt={`${item.title} thumbnail`}
+                        className="h-12 w-20 object-cover rounded"
+                      />
+                    ) : (
+                      <span className="text-sm text-muted-foreground">None</span>
+                    )}
+                  </TableCell>
                   <TableCell className="max-w-xs truncate">{item.content.substring(0, 100)}...</TableCell>
                   <TableCell>
                     <div className="flex space-x-2">

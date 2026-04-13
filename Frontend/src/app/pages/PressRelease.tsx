@@ -16,7 +16,7 @@ export default function PressRelease() {
     date: new Date(release.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
     year: new Date(release.date).getFullYear(),
     month: new Date(release.date).toLocaleDateString('en-US', { month: 'long' }),
-    thumbnail: "img2501.png", // Default thumbnail
+    thumbnail: release.thumbnail || "img2501.png",
     summary: release.content.substring(0, 200) + "...",
     fullContent: release.content,
     pdfLink: "#" // Placeholder
@@ -41,13 +41,17 @@ export default function PressRelease() {
 
   return (
     <div className="min-h-screen bg-secondary/20">
-      <div className="bg-primary text-white py-16">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
+      <div
+        className="relative overflow-hidden text-white py-16 bg-cover bg-center"
+        style={{ backgroundImage: "url('/campus.webp')" }}
+      >
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <h1 className="mb-4">Press Releases</h1>
+            <h1 className="mb-4 text-3xl">Press Releases</h1>
             <p className="text-lg text-white/90 max-w-3xl">
               Official statements, announcements, and communications from Delhi Technological University.
             </p>

@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { motion } from "motion/react";
-import { Camera, Newspaper, FileText, Video, Users, Mail } from "lucide-react";
+import { Camera, Newspaper, FileText, Video, Users, Mail, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 import Button from "../components/Button";
 
 export default function Home() {
@@ -13,11 +14,126 @@ export default function Home() {
     { icon: Mail, title: "Contact Us", description: "Get in touch for collaborations", link: "/contact" },
   ];
 
+  const backgroundImages = [
+    "bg-1.png",
+    "bg-2.png",
+    "bg-3.png",
+    "bg-4.png",
+    "bg-5.png",
+    "bg-6.png",
+    "bg-7.png",
+    "bg-8.png",
+    "bg-9.png",
+    "bg-10.png",
+    "bg-11.png",
+    "bg-12.png",
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [direction, setDirection] = useState(1); // 1 = forward, -1 = backward
+  const intervalRef = useRef(0);
+
+  const startAutoPlay = () => {
+    intervalRef.current = setInterval(() => {
+      goNext();
+    }, 4000);
+  };
+
+  const stopAutoPlay = () => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+  };
+
+  useEffect(() => {
+    startAutoPlay();
+    return () => stopAutoPlay();
+  }, [currentIndex]);
+
+  const goNext = () => {
+    if (isAnimating) return;
+    setDirection(1);
+    setIsAnimating(true);
+    setTimeout(() => {
+      setCurrentIndex((prev) => (prev + 1) % backgroundImages.length);
+      setIsAnimating(false);
+    }, 600);
+  };
+
+  const goPrev = () => {
+    if (isAnimating) return;
+    setDirection(-1);
+    setIsAnimating(true);
+    setTimeout(() => {
+      setCurrentIndex((prev) => (prev - 1 + backgroundImages.length) % backgroundImages.length);
+      setIsAnimating(false);
+    }, 600);
+  };
+
+  const handlePrev = () => {
+    stopAutoPlay();
+    goPrev();
+  };
+
+  const handleNext = () => {
+    stopAutoPlay();
+    goNext();
+  };
+
+  const prevIndex = (currentIndex - 1 + backgroundImages.length) % backgroundImages.length;
+  const nextIndex = (currentIndex + 1) % backgroundImages.length;
+
   return (
     <div>
-      <section className="relative h-[calc(100vh-4rem)] min-h-[600px] flex items-center bg-gradient-to-br from-primary/5 to-white overflow-hidden">
-        <div className="absolute inset-0 bg-[url('campus.webp')] bg-cover opacity-30 backdrop-blur-sm" />
+      {/* ── Hero Section ── */}
+      <section className="relative h-[calc(100vh-4rem)] min-h-[600px] flex items-center overflow-hidden bg-black">
 
+        {/* Film-strip carousel track */}
+        <div className="absolute inset-0 flex">
+          {/* Previous image (sliding out to the left) */}
+          <div
+            className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-in-out "
+            style={{
+              backgroundImage: `url(${backgroundImages[prevIndex]})`,
+              transform: isAnimating && direction === 1 ? 'translateX(-100%)' : 'translateX(-100%)',
+              opacity: 0.45,
+            }}
+          />
+
+          {/* Current image */}
+          <div
+            key={currentIndex}
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${backgroundImages[currentIndex]})`,
+              transform: isAnimating
+                ? direction === 1 ? 'translateX(-100%)' : 'translateX(100%)'
+                : 'translateX(0%)',
+              transition: isAnimating ? 'transform 0.65s cubic-bezier(0.77,0,0.175,1)' : 'none',
+              opacity: 0.45,
+            }}
+          />
+
+          {/* Next image (sliding in from the right) */}
+          <div
+            key={`next-${currentIndex}`}
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${backgroundImages[nextIndex]})`,
+              transform: isAnimating && direction === 1
+                ? 'translateX(0%)'
+                : isAnimating && direction === -1
+                  ? 'translateX(0%)'
+                  : direction === 1 ? 'translateX(100%)' : 'translateX(-100%)',
+              transition: isAnimating ? 'transform 0.65s cubic-bezier(0.77,0,0.175,1)' : 'none',
+              opacity: 0.45,
+            }}
+          />
+        </div>
+
+        {/* Dark overlay for text legibility */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
+
+        {/* Content */}
         <div className="relative mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] w-full">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -30,15 +146,15 @@ export default function Home() {
             </div>
 
             <h1 className="mb-6 leading-tight">
-              <span className="block text-5xl sm:text-6xl lg:text-7xl font-bold text-foreground mb-2">
+              <span className="block text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-2">
                 DTU Media Cell
               </span>
-              <span className="block text-2xl sm:text-3xl lg:text-4xl text-muted-foreground">
+              <span className="block text-2xl sm:text-3xl lg:text-4xl text-white/70">
                 Capturing Moments. Amplifying Voices.
               </span>
             </h1>
 
-            <p className="mb-8 text-lg text-muted-foreground max-w-2xl">
+            <p className="mb-8 text-lg text-white/60 max-w-2xl">
               The official media and documentation hub of Delhi Technological University, preserving our institution's journey through compelling visual narratives and comprehensive coverage.
             </p>
 
@@ -52,8 +168,46 @@ export default function Home() {
             </div>
           </motion.div>
         </div>
+
+        {/* Prev / Next buttons */}
+        <button
+          onClick={handlePrev}
+          aria-label="Previous image"
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-11 h-11 rounded-full bg-black/40 text-white hover:bg-black/70 transition-colors duration-200 border border-white/20 backdrop-blur-sm"
+        >
+          <ChevronLeft size={22} />
+        </button>
+
+        <button
+          onClick={handleNext}
+          aria-label="Next image"
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-11 h-11 rounded-full bg-black/40 text-white hover:bg-black/70 transition-colors duration-200 border border-white/20 backdrop-blur-sm"
+        >
+          <ChevronRight size={22} />
+        </button>
+
+        {/* Dot indicators */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+          {backgroundImages.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => {
+                stopAutoPlay();
+                setDirection(i > currentIndex ? 1 : -1);
+                setCurrentIndex(i);
+              }}
+              aria-label={`Go to image ${i + 1}`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === currentIndex
+                  ? 'w-6 bg-white'
+                  : 'w-1.5 bg-white/40 hover:bg-white/70'
+              }`}
+            />
+          ))}
+        </div>
       </section>
 
+      {/* ── About Section ── */}
       <section className="py-20 bg-gradient-to-t from-primary to-[#3c0000]">
         <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
           <motion.div
@@ -70,6 +224,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── What We Do Section ── */}
       <section className="py-20 bg-secondary/30">
         <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
           <div className="text-center mb-12">
