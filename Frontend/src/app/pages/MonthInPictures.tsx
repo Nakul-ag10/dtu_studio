@@ -6,7 +6,7 @@ import { useData } from "../contexts/DataContext";
 export default function MonthInPictures() {
   const { monthInPictures } = useData();
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
-  const [selectedMonth, setSelectedMonth] = useState<number | null>(null);
+  const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {

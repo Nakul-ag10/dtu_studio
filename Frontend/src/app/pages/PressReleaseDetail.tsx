@@ -5,7 +5,7 @@ import { useData } from "../contexts/DataContext";
 
 export default function PressReleaseDetail() {
   const { id } = useParams();
-  const releaseId = parseInt(id || "0");
+  const releaseId = id || "";
   const { pressReleases } = useData();
 
   const release = pressReleases.find(r => r.id === releaseId);

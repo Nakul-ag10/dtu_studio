@@ -53,7 +53,7 @@ export default function AdminPressReleases() {
     setIsAddDialogOpen(true);
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     if (window.confirm('Are you sure you want to delete this press release?')) {
       deletePressRelease(id);
     }

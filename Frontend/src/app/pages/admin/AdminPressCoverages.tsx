@@ -60,7 +60,7 @@ export default function AdminPressCoverages() {
     setIsAddDialogOpen(true);
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     if (window.confirm('Are you sure you want to delete this press coverage?')) {
       deletePressCoverage(id);
     }

@@ -51,7 +51,7 @@ export default function AdminPressConferences() {
     setIsAddDialogOpen(true);
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     if (window.confirm('Are you sure you want to delete this press conference?')) {
       deletePressConference(id);
     }
