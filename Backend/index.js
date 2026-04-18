@@ -16,12 +16,12 @@ const NODE_ENV = process.env.NODE_ENV || "development";
 const CORS_ORIGIN = process.env.CORS_ORIGIN || "http://localhost:5173";
 
 // Validate required environment variables
-if (!process.env.MONGODB_URI || !process.env.JWT_SECRET) {
-  console.error(
-    "Error: Missing required environment variables (MONGODB_URI, JWT_SECRET)",
-  );
-  process.exit(1);
-}
+// if (!process.env.MONGODB_URI || !process.env.JWT_SECRET) {
+//   console.error(
+//     "Error: Missing required environment variables (MONGODB_URI, JWT_SECRET)",
+//   );
+//   process.exit(1);
+// }
 
 // CORS configuration
 const corsOptions = {
