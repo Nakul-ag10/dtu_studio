@@ -62,7 +62,7 @@ export default function Navbar_copy() {
           {/* Logo Section */}
           <Link to="/" className="flex items-center gap-4 group">
             <motion.div whileHover={{ scale: 1.05 }} className="w-12 h-12 flex items-center justify-center">
-              <img src="dtu-logo.webp" alt="DTU Logo" className="object-contain" />
+              <img src="/dtu-logo.webp" alt="DTU Logo" className="object-contain" />
             </motion.div>
             <div className="flex flex-col border-l border-slate-200 pl-4">
               <span className="text-xl font-bold tracking-tight text-foreground leading-none">DTU STUDIO</span>

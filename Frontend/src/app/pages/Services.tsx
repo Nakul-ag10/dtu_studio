@@ -290,28 +290,24 @@ export default function Services() {
     <div className="min-h-screen bg-secondary/20">
 
       {/* ── Hero Banner ── */}
+      {/* Hero */}
       <div
-        className="relative overflow-hidden text-white py-16 bg-cover bg-center"
-        style={{ backgroundImage: "url('/campus.webp')" }}
+        className="relative overflow-hidden text-white py-20 bg-cover bg-center"
+        style={{ backgroundImage: "url('/bg-1.png')" }}
       >
-        <div className="absolute inset-0 bg-black/60" />
-        <div className="relative mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <h1 className="mb-4 text-3xl font-bold">Studio Services</h1>
-            <p className="text-lg text-white/90 max-w-3xl">
-              A state-of-the-art media production facility at Delhi Technological University — covering the full spectrum of pre-production, production, and post-production.
+        <div className="absolute inset-0 bg-black/65" />
+        <div className="relative mx-auto px-6 lg:px-8 max-w-5xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <p className="text-xs uppercase tracking-widest text-white/50 mb-3 font-medium">DTU Media Cell</p>
+            <h1 className="text-4xl md:text-5xl font-semibold mb-4">Studio Services</h1>
+            <div className="w-10 h-0.5 bg-primary mb-5" />
+            <p className="text-base text-white/80 max-w-xl leading-relaxed">
+              The DTU Studio offers a comprehensive range of media production services, including professional photography, video production, live streaming, podcasting, graphic design, and social media management — serving the diverse communication needs of Delhi Technological University.
             </p>
-            <div className="mt-4 flex flex-wrap gap-3">
-              <span className="inline-block px-3 py-1 bg-white/20 rounded text-sm">
-                16,000+ YouTube Subscribers
-              </span>
-              <span className="inline-block px-3 py-1 bg-white/20 rounded text-sm">
-                700+ Videos Published
-              </span>
-              <span className="inline-block px-3 py-1 bg-white/20 rounded text-sm">
-                2,000+ Lectures Archived
-              </span>
-            </div>
           </motion.div>
         </div>
       </div>

@@ -9,8 +9,8 @@ export default function Root() {
     <AuthProvider>
       <DataProvider>
         <div className="min-h-screen flex flex-col">
-          {/* <Navbar /> */}
-          <Navbar_copy />
+          <Navbar />
+          {/* <Navbar_copy /> */}
           <main className="flex-1">
             <Outlet />
           </main>

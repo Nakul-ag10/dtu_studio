@@ -41,27 +41,27 @@ export default function PressRelease() {
 
   return (
     <div className="min-h-screen bg-secondary/20">
+      {/* Hero */}
       <div
-        className="relative overflow-hidden text-white py-16 bg-cover bg-center"
-        style={{ backgroundImage: "url('/campus.webp')" }}
+        className="relative overflow-hidden text-white py-20 bg-cover bg-center"
+        style={{ backgroundImage: "url('/bg-3.png')" }}
       >
-        <div className="absolute inset-0 bg-black/60" />
-        <div className="relative mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
+        <div className="absolute inset-0 bg-black/65" />
+        <div className="relative mx-auto px-6 lg:px-8 max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
           >
-            <h1 className="mb-4 text-3xl">Press Releases</h1>
-            <p className="text-lg text-white/90 max-w-3xl">
-              Official statements, announcements, and communications from Delhi Technological University.
+            <p className="text-xs uppercase tracking-widest text-white/50 mb-3 font-medium">DTU Media Cell</p>
+            <h1 className="text-4xl md:text-5xl font-semibold mb-4">Press Release</h1>
+            <div className="w-10 h-0.5 bg-primary mb-5" />
+            <p className="text-base text-white/80 max-w-xl leading-relaxed">
+              Stay informed with the latest official announcements and news from Delhi Technological University through our comprehensive collection of press releases, covering research breakthroughs, campus developments, and institutional achievements.
             </p>
-            <div className="mt-4 inline-block px-3 py-1 bg-white/20 rounded text-sm">
-              📊 API DATA HERE - Backend Integration Ready
-            </div>
           </motion.div>
         </div>
       </div>
-
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] py-12">
         <div className="mb-8 flex flex-col gap-4">
           <div className="flex items-center gap-2 text-muted-foreground">
@@ -169,13 +169,13 @@ export default function PressRelease() {
                   >
                     Read Full Release
                   </Link>
-                  <a
+                  {/* <a
                     href={release.pdfLink}
                     className="inline-flex items-center gap-2 px-4 py-2 bg-white text-foreground border border-border rounded hover:bg-secondary transition-colors text-sm"
                   >
                     <Download size={16} />
                     PDF
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </motion.article>

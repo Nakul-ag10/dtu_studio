@@ -71,7 +71,7 @@ export default function AdminMonthInPictures() {
     setIsAddDialogOpen(true);
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     if (window.confirm('Are you sure you want to delete this month?')) {
       deleteMonthInPictures(id);
     }
