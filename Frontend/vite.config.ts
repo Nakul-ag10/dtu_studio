@@ -19,11 +19,11 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:5000',
+        target: 'https://dtu-studio-1.onrender.com',
         changeOrigin: true,
       },
       '/uploads': {
-        target: 'http://localhost:5000',
+        target: 'https://dtu-studio-1.onrender.com',
         changeOrigin: true,
       },
     },
