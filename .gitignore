@@ -110,6 +110,13 @@ dist
 # vitepress cache directory
 **/.vitepress/cache
 
+# Build outputs
+build/
+dist/
+
+# File uploads
+Backend/uploads/
+
 # Docusaurus cache and generated files
 .docusaurus
 

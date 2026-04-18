@@ -1,11 +1,13 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const monthInPicturesSchema = new mongoose.Schema({
-  month: { type: String, required: true },
-  year: { type: Number, required: true },
-  thumbnail: { type: String, required: true },
-  imageCount: { type: Number, default: 0 },
-  images: [{ type: String }],
-}, { timestamps: true });
+const monthInPicturesSchema = new mongoose.Schema(
+  {
+    month: { type: String, required: true },
+    year: { type: Number, required: true },
+    pdfPath: { type: String, required: true },
+    thumbnail: { type: String, default: null },
+  },
+  { timestamps: true },
+);
 
-module.exports = mongoose.model('MonthInPictures', monthInPicturesSchema);
+module.exports = mongoose.model("MonthInPictures", monthInPicturesSchema);

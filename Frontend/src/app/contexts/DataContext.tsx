@@ -4,9 +4,8 @@ export interface MonthInPicturesItem {
   id: string;
   month: string;
   year: number;
-  thumbnail: string;
-  imageCount: number;
-  images: string[];
+  pdfPath: string;
+  thumbnail: string | null;
 }
 
 export interface PressConferenceItem {
@@ -112,8 +111,6 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
         setPressConferences(Array.isArray(pcData) ? pcData.map(mapDoc) : []);
         setPressCoverages(Array.isArray(pcovData) ? pcovData.map(mapDoc) : []);
         setPressReleases(Array.isArray(prData) ? prData.map(mapDoc) : []);
-      } catch (err) {
-        console.error('Error fetching data:', err);
       } finally {
         setIsLoading(false);
       }

@@ -1,16 +1,23 @@
 import { useMemo, useState, useEffect } from "react";
 import { motion } from "motion/react";
-import { ChevronLeft, ChevronRight, Calendar } from "lucide-react";
+import { ChevronLeft, ChevronRight, FileText, ZoomIn, ZoomOut, X } from "lucide-react";
 import { useData } from "../contexts/DataContext";
+import { Document, Page, pdfjs } from "react-pdf";
+
+// Set up PDF worker
+pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 export default function MonthInPictures() {
   const { monthInPictures } = useData();
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [scale, setScale] = useState(1);
 
   useEffect(() => {
-    setCurrentImageIndex(0);
+    setCurrentPage(1);
+    setScale(1);
   }, [selectedMonth]);
 
   const monthsData = monthInPictures;
@@ -50,7 +57,7 @@ export default function MonthInPictures() {
             <h1 className="text-4xl md:text-5xl font-semibold mb-4">Month In Pictures</h1>
             <div className="w-10 h-0.5 bg-primary mb-5" />
             <p className="text-base text-white/80 max-w-xl leading-relaxed">
-              A visual journey through the months at Delhi Technological University, showcasing campus life, events, and memorable moments captured by our media cell.
+              Explore our digital flipbooks - beautiful PDF magazines showcasing campus life, events, and memorable moments from Delhi Technological University.
             </p>
           </motion.div>
         </div>
@@ -64,7 +71,7 @@ export default function MonthInPictures() {
               <h2 className="mt-2 text-2xl font-semibold">Browse by year</h2>
             </div>
             <p className="mb-6 text-sm text-muted-foreground">
-              Current-year months are visible by default. Click any year to load its images in the gallery.
+              Current-year months are visible by default. Click any year to load its flipbooks.
             </p>
             <div className="space-y-3">
               {years.map((year) => (
@@ -83,7 +90,7 @@ export default function MonthInPictures() {
                     {year === new Date().getFullYear() && <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary">Current</span>}
                   </div>
                   <p className="text-sm text-muted-foreground mt-1">
-                    {monthsData.filter((item) => item.year === year).length} months
+                    {monthsData.filter((item) => item.year === year).length} flipbook{monthsData.filter((item) => item.year === year).length === 1 ? "" : "s"}
                   </p>
                 </button>
               ))}
@@ -93,11 +100,11 @@ export default function MonthInPictures() {
           <section>
             <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Viewing images for</p>
+                <p className="text-sm text-muted-foreground">Viewing flipbooks for</p>
                 <h2 className="text-3xl font-semibold">{selectedYearLabel}</h2>
               </div>
               <div className="rounded-2xl bg-white/90 border border-border px-4 py-3 text-sm text-muted-foreground">
-                {filteredMonths.length} month{filteredMonths.length === 1 ? "" : "s"} available
+                {filteredMonths.length} flipbook{filteredMonths.length === 1 ? "" : "s"} available
               </div>
             </div>
 
@@ -111,21 +118,30 @@ export default function MonthInPictures() {
                   transition={{ delay: index * 0.05 }}
                   className="group overflow-hidden rounded-3xl border border-border bg-white text-left shadow-sm hover:shadow-lg transition-all duration-300"
                 >
-                  <div className="relative h-72 overflow-hidden">
-                    <img
-                      src={month.thumbnail}
-                      alt={month.month}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
+                  <div className="relative h-72 overflow-hidden bg-gray-200">
+                    {month.thumbnail ? (
+                      <img
+                        src={month.thumbnail}
+                        alt={month.month}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
+                        <FileText size={48} className="text-primary/40" />
+                      </div>
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                    <div className="absolute bottom-4 left-4 text-white">
-                      <h3 className="text-lg font-semibold">{month.month}</h3>
-                      <p className="text-sm text-white/80">{month.imageCount} images</p>
+                    <div className="absolute bottom-4 left-4 text-white flex items-center gap-2">
+                      <FileText size={18} />
+                      <div>
+                        <h3 className="text-lg font-semibold">{month.month}</h3>
+                        <p className="text-sm text-white/80">Digital Magazine</p>
+                      </div>
                     </div>
                   </div>
                   <div className="p-5">
                     <p className="text-sm text-muted-foreground">
-                      Click to open the full month gallery.
+                      Click to open the flipbook.
                     </p>
                   </div>
                 </motion.button>
@@ -138,69 +154,90 @@ export default function MonthInPictures() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4"
             onClick={() => setSelectedMonth(null)}
           >
-            <div className="relative w-full max-w-4xl overflow-hidden rounded-3xl bg-white p-8" onClick={(e) => e.stopPropagation()}>
+            <div className="relative w-full max-w-5xl max-h-[90vh] overflow-auto rounded-2xl bg-white" onClick={(e) => e.stopPropagation()}>
               <button
                 onClick={() => setSelectedMonth(null)}
-                className="absolute right-4 top-4 rounded-full border border-border bg-white p-2 text-gray-600 shadow-sm hover:bg-gray-50"
+                className="sticky top-4 right-4 float-right z-10 rounded-full border border-border bg-white p-2 text-gray-600 shadow-md hover:bg-gray-50 m-4"
               >
-                ✕
+                <X size={20} />
               </button>
               {(() => {
                 const monthData = monthsData.find((m) => m.id === selectedMonth);
                 if (!monthData) return null;
 
-                const nextImage = () => {
-                  setCurrentImageIndex((prev) => (prev + 1) % monthData.images.length);
-                };
-
-                const prevImage = () => {
-                  setCurrentImageIndex((prev) => (prev - 1 + monthData.images.length) % monthData.images.length);
-                };
-
                 return (
-                  <>
-                    <h3 className="mb-4 text-2xl font-semibold">{monthData.month} - Flipbook Gallery</h3>
-                    <div className="relative aspect-video overflow-hidden rounded-3xl bg-secondary">
-                      <img
-                        src={monthData.images[currentImageIndex]}
-                        alt={`${monthData.month} - Image ${currentImageIndex + 1}`}
-                        className="h-full w-full object-cover"
-                      />
-                      <div className="absolute inset-0 flex items-center justify-between p-4">
+                  <div className="p-8">
+                    <div className="mb-6">
+                      <h3 className="text-3xl font-semibold mb-2">{monthData.month} - Digital Magazine</h3>
+                      <p className="text-sm text-muted-foreground">Interactive PDF Flipbook</p>
+                    </div>
+
+                    {/* Controls */}
+                    <div className="mb-6 flex items-center justify-between bg-secondary/50 rounded-2xl p-4 flex-wrap gap-4">
+                      <div className="flex items-center gap-3">
                         <button
-                          onClick={prevImage}
-                          className="rounded-full bg-black/50 p-2 text-white transition hover:bg-black/70"
-                          disabled={monthData.images.length <= 1}
+                          onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                          disabled={currentPage <= 1}
+                          className="rounded-lg border border-border bg-white p-2 text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition"
                         >
-                          <ChevronLeft size={24} />
+                          <ChevronLeft size={20} />
                         </button>
+                        <div className="text-sm font-medium min-w-[100px] text-center">
+                          Page {currentPage} of {totalPages}
+                        </div>
                         <button
-                          onClick={nextImage}
-                          className="rounded-full bg-black/50 p-2 text-white transition hover:bg-black/70"
-                          disabled={monthData.images.length <= 1}
+                          onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                          disabled={currentPage >= totalPages}
+                          className="rounded-lg border border-border bg-white p-2 text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition"
                         >
-                          <ChevronRight size={24} />
+                          <ChevronRight size={20} />
                         </button>
                       </div>
-                      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 transform rounded-full bg-black/50 px-4 py-2 text-white">
-                        {currentImageIndex + 1} / {monthData.images.length}
+
+                      <div className="flex items-center gap-3">
+                        <button
+                          onClick={() => setScale(Math.max(0.5, scale - 0.1))}
+                          className="rounded-lg border border-border bg-white p-2 text-gray-600 hover:bg-gray-50 transition"
+                        >
+                          <ZoomOut size={20} />
+                        </button>
+                        <div className="text-sm font-medium min-w-[50px] text-center">
+                          {Math.round(scale * 100)}%
+                        </div>
+                        <button
+                          onClick={() => setScale(Math.min(2, scale + 0.1))}
+                          className="rounded-lg border border-border bg-white p-2 text-gray-600 hover:bg-gray-50 transition"
+                        >
+                          <ZoomIn size={20} />
+                        </button>
                       </div>
                     </div>
-                    <div className="mt-4 flex flex-wrap justify-center gap-2">
-                      {monthData.images.map((_, index) => (
-                        <button
-                          key={index}
-                          onClick={() => setCurrentImageIndex(index)}
-                          className={`h-3 w-3 rounded-full transition ${
-                            index === currentImageIndex ? "bg-primary" : "bg-gray-300"
-                          }`}
-                        />
-                      ))}
+
+                    {/* PDF Viewer */}
+                    <div className="relative bg-gray-100 rounded-2xl overflow-auto flex justify-center" style={{ maxHeight: 'calc(90vh - 300px)' }}>
+                      <Document
+                        file={monthData.pdfPath}
+                        onLoadSuccess={(pdf) => setTotalPages(pdf.numPages)}
+                        loading={<div className="p-8 text-center text-gray-600">Loading PDF...</div>}
+                        error={<div className="p-8 text-center text-red-600">Failed to load PDF</div>}
+                      >
+                        <div className="flex justify-center p-4">
+                          <Page
+                            pageNumber={currentPage}
+                            scale={scale}
+                          />
+                        </div>
+                      </Document>
                     </div>
-                  </>
+
+                    {/* Footer Info */}
+                    <div className="mt-6 text-center text-sm text-muted-foreground">
+                      <p>{monthData.month} Flipbook</p>
+                    </div>
+                  </div>
                 );
               })()}
             </div>
