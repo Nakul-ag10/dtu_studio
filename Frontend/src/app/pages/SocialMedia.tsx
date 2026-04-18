@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { Instagram, Twitter, Linkedin, Youtube, ExternalLink, X, XIcon, FacebookIcon, Facebook } from "lucide-react";
-
+import { FaXTwitter } from "react-icons/fa6";
 export default function SocialMedia() {
   const socialPlatforms = [
     {
@@ -12,10 +12,10 @@ export default function SocialMedia() {
       description: "Visual stories from campus life"
     },
     {
-      name: "Twitter",
+      name: "X (Twitter)",
       handle: "@dtu_delhi",
-      icon: X,
-      color: "bg-[#1DA1F2]",
+      icon: FaXTwitter,
+      color: "bg-black",
       link: "https://x.com/dtu_delhi",
       description: "Real-time updates and announcements"
     },
@@ -39,7 +39,7 @@ export default function SocialMedia() {
       name: "Facebook",
       handle: "DTU_Official",
       icon: Facebook,
-      color: "bg-[#1DA1F2]",
+      color: "bg-[#3b5998]",
       link: "https://www.facebook.com/profile.php?id=100065103819173",
       description: "Community engagement and event highlights"
     }
@@ -47,19 +47,23 @@ export default function SocialMedia() {
 
   return (
     <div className="min-h-screen bg-secondary/20">
+      {/* Hero */}
       <div
-        className="relative overflow-hidden text-white py-16 bg-cover bg-center"
-        style={{ backgroundImage: "url('/campus.webp')" }}
+        className="relative overflow-hidden text-white py-20 bg-cover bg-center"
+        style={{ backgroundImage: "url('/bg-5.png')" }}
       >
-        <div className="absolute inset-0 bg-black/60" />
-        <div className="relative mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
+        <div className="absolute inset-0 bg-black/65" />
+        <div className="relative mx-auto px-6 lg:px-8 max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
           >
-            <h1 className="mb-4 text-3xl">Connect With Us</h1>
-            <p className="text-lg text-white/90 max-w-3xl">
-              Follow DTU Media Cell on social media for the latest updates, behind-the-scenes content, and campus highlights
+            <p className="text-xs uppercase tracking-widest text-white/50 mb-3 font-medium">DTU Media Cell</p>
+            <h1 className="text-4xl md:text-5xl font-semibold mb-4">Social Media</h1>
+            <div className="w-10 h-0.5 bg-primary mb-5" />
+            <p className="text-base text-white/80 max-w-xl leading-relaxed">
+              Connect with Delhi Technological University on social media to stay updated on campus news, events, and student life.
             </p>
           </motion.div>
         </div>

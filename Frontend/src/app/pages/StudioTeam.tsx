@@ -74,23 +74,24 @@ export default function StudioTeam() {
 
   return (
     <div className="min-h-screen bg-secondary/20">
+      {/* Hero */}
       <div
-        className="relative overflow-hidden text-white py-16 bg-cover bg-center"
-        style={{ backgroundImage: "url('/campus.webp')" }}
+        className="relative overflow-hidden text-white py-20 bg-cover bg-center"
+        style={{ backgroundImage: "url('/bg-11.png')" }}
       >
-        <div className="absolute inset-0 bg-black/60" />
-        <div className="relative mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
+        <div className="absolute inset-0 bg-black/65" />
+        <div className="relative mx-auto px-6 lg:px-8 max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
           >
-            <h1 className="mb-4 text-3xl">Studio Team</h1>
-            <p className="text-lg text-white/90 max-w-3xl">
-              Meet our talented team of photographers, videographers, designers, and media professionals dedicated to capturing DTU's story.
+            <p className="text-xs uppercase tracking-widest text-white/50 mb-3 font-medium">DTU Media Cell</p>
+            <h1 className="text-4xl md:text-5xl font-semibold mb-4">Studio Team</h1>
+            <div className="w-10 h-0.5 bg-primary mb-5" />
+            <p className="text-base text-white/80 max-w-xl leading-relaxed">
+              Meet the dedicated individuals behind DTU Media Cell who work tirelessly to capture and share our university's story through compelling visuals and engaging content.
             </p>
-            <div className="mt-4 inline-block px-3 py-1 bg-white/20 rounded text-sm">
-              📸 Professional Media Team - DTU Studio
-            </div>
           </motion.div>
         </div>
       </div>

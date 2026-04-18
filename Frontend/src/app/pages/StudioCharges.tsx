@@ -63,23 +63,24 @@ export default function StudioCharges() {
 
   return (
     <div className="min-h-screen bg-secondary/20">
+      {/* Hero */}
       <div
-        className="relative overflow-hidden text-white py-16 bg-cover bg-center"
+        className="relative overflow-hidden text-white py-20 bg-cover bg-center"
         style={{ backgroundImage: "url('/campus.webp')" }}
       >
-        <div className="absolute inset-0 bg-black/60" />
-        <div className="relative mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="relative mx-auto px-6 lg:px-8 max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
           >
-            <h1 className="mb-4 text-3xl">Studio Charges</h1>
-            <p className="text-lg text-white/90 max-w-3xl">
-              Professional rates for DTU Studio services available to external clients, organizations, and businesses.
+            <p className="text-xs uppercase tracking-widest text-white/50 mb-3 font-medium">DTU Media Cell</p>
+            <h1 className="text-4xl md:text-5xl font-semibold mb-4">Studio Charges</h1>
+            <div className="w-10 h-0.5 bg-primary mb-5" />
+            <p className="text-base text-white/80 max-w-xl leading-relaxed">
+              The DTU Studio offers a comprehensive range of media production services, including professional photography, video production, live streaming, podcasting, graphic design, and social media management — serving the diverse communication needs of Delhi Technological University.
             </p>
-            <div className="mt-4 inline-block px-3 py-1 bg-white/20 rounded text-sm">
-              💰 External Client Pricing - Professional Services
-            </div>
           </motion.div>
         </div>
       </div>
