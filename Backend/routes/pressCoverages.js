@@ -1,54 +1,71 @@
-const express = require('express');
-const PressCoverage = require('../models/PressCoverage');
-const authMiddleware = require('../middleware/authMiddleware');
+const express = require("express");
+const PressCoverage = require("../models/PressCoverage");
+const authMiddleware = require("../middleware/authMiddleware");
+const {
+  validateObjectId,
+  validatePressCoverage,
+} = require("../middleware/validateInput");
 
 const router = express.Router();
 
 // GET all (public)
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const items = await PressCoverage.find().sort({ date: -1 });
     res.json(items);
   } catch (err) {
-    console.error('Error fetching press-coverages:', err);
-    res.status(500).json({ message: 'Server error.' });
+    res.status(500).json({ message: "Server error." });
   }
 });
 
 // POST create (protected)
-router.post('/', authMiddleware, async (req, res) => {
+router.post("/", authMiddleware, async (req, res) => {
   try {
     const { title, summary, source, date, link, thumbnail } = req.body;
-    const item = new PressCoverage({ title, summary, source, date, link, thumbnail });
+    const item = new PressCoverage({
+      title,
+      summary,
+      source,
+      date,
+      link,
+      thumbnail,
+    });
     await item.save();
     res.status(201).json(item);
   } catch (err) {
-    console.error('Error creating press-coverage:', err);
-    res.status(500).json({ message: 'Server error.' });
+    res.status(500).json({ message: "Server error." });
   }
 });
 
 // PUT update (protected)
-router.put('/:id', authMiddleware, async (req, res) => {
+router.put("/:id", authMiddleware, async (req, res) => {
   try {
-    const item = await PressCoverage.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!item) return res.status(404).json({ message: 'Not found.' });
+    if (!validateObjectId(req.params.id)) {
+      return res.status(400).json({ message: "Invalid ID format." });
+    }
+    const item = await PressCoverage.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true },
+    );
+    if (!item) return res.status(404).json({ message: "Not found." });
     res.json(item);
   } catch (err) {
-    console.error('Error updating press-coverage:', err);
-    res.status(500).json({ message: 'Server error.' });
+    res.status(500).json({ message: "Server error." });
   }
 });
 
 // DELETE (protected)
-router.delete('/:id', authMiddleware, async (req, res) => {
+router.delete("/:id", authMiddleware, async (req, res) => {
   try {
+    if (!validateObjectId(req.params.id)) {
+      return res.status(400).json({ message: "Invalid ID format." });
+    }
     const item = await PressCoverage.findByIdAndDelete(req.params.id);
-    if (!item) return res.status(404).json({ message: 'Not found.' });
-    res.json({ message: 'Deleted successfully.' });
+    if (!item) return res.status(404).json({ message: "Not found." });
+    res.json({ message: "Deleted successfully." });
   } catch (err) {
-    console.error('Error deleting press-coverage:', err);
-    res.status(500).json({ message: 'Server error.' });
+    res.status(500).json({ message: "Server error." });
   }
 });
 

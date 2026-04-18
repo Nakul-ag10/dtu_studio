@@ -13,8 +13,6 @@ import StudioCharges from "./pages/StudioCharges";
 import StudioTeam from "./pages/StudioTeam";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
-import Test from "./pages/Test";
-
 import Admin from "./pages/Admin";
 import AdminMonthInPictures from "./pages/admin/AdminMonthInPictures"
 import AdminPressConferences from "./pages/admin/AdminPressConferences";
@@ -81,7 +79,6 @@ export const router = createBrowserRouter([
         ),
       },
       { path: "*", Component: NotFound },
-      { path: "test", Component: Test}
     ],
   },
 ]);
