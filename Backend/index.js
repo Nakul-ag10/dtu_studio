@@ -11,15 +11,10 @@ const pressCoveragesRoutes = require("./routes/pressCoverages");
 const pressReleasesRoutes = require("./routes/pressReleases");
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT 
 const NODE_ENV = process.env.NODE_ENV || "development";
 const CORS_ORIGIN = process.env.CORS_ORIGIN || "http://localhost:5173";
 
-console.log("ENV CHECK:", {
-  MONGODB_URI: process.env.MONGODB_URI ?? "MISSING",
-  JWT_SECRET: process.env.JWT_SECRET ?? "MISSING",
-  NODE_ENV: process.env.NODE_ENV ?? "MISSING",
-});
 // Validate required environment variables
 // if (!process.env.MONGODB_URI || !process.env.JWT_SECRET) {
 //   console.error(
@@ -78,7 +73,7 @@ mongoose
     if (NODE_ENV !== "test") {
       console.log("Connected to MongoDB");
     }
-    app.listen(PORT, () => {
+    app.listen(PORT,'0.0.0.0', () => {
       if (NODE_ENV !== "test") {
         console.log(`Server is running on port ${PORT} [${NODE_ENV}]`);
       }
