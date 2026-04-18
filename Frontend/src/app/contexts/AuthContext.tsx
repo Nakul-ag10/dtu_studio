@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { apiPost, apiCall } from '../utils/api';
 
 interface User {
   id: string;
@@ -46,8 +47,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
 
       try {
-        const res = await fetch('/api/auth/me', {
-          headers: { Authorization: `Bearer ${token}` },
+        const res = await apiCall('/auth/me', {
+          method: 'GET',
+          includeAuth: true,
         });
 
         if (res.ok) {
@@ -68,12 +70,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (email: string, password: string) => {
     try {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-
+      const res = await apiPost('/auth/login', { email, password }, false);
       const data = await res.json();
 
       if (res.ok) {
@@ -90,12 +87,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const signup = async (email: string, password: string) => {
     try {
-      const res = await fetch('/api/auth/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-
+      const res = await apiPost('/auth/signup', { email, password }, false);
       const data = await res.json();
 
       if (res.ok) {
@@ -117,12 +109,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const forgotPassword = async (email: string) => {
     try {
-      const res = await fetch('/api/auth/forgot-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
-
+      const res = await apiPost('/auth/forgot-password', { email }, false);
       const data = await res.json();
 
       if (res.ok) {
@@ -137,12 +124,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const resetPassword = async (token: string, password: string) => {
     try {
-      const res = await fetch('/api/auth/reset-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token, password }),
-      });
-
+      const res = await apiPost('/auth/reset-password', { token, password }, false);
       const data = await res.json();
 
       if (res.ok) {

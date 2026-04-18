@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router';
 import { useAuth } from '../../contexts/AuthContext';
+import { apiGet, apiPost, apiDelete } from '../../utils/api';
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
 import { Label } from '../../components/ui/label';
@@ -38,7 +39,7 @@ export default function AdminMonthInPictures() {
 
   const fetchMonths = async () => {
     try {
-      const response = await fetch('/api/month-in-pictures');
+      const response = await apiGet('/month-in-pictures', false);
       const data = await response.json();
       // Map MongoDB _id to id for consistency
       const mappedData = Array.isArray(data) ? data.map((item: any) => ({
@@ -121,15 +122,7 @@ export default function AdminMonthInPictures() {
         uploadFormData.append('thumbnail', formData.thumbnailFile);
       }
       
-      const token = localStorage.getItem('auth_token');
-
-      const response = await fetch('/api/month-in-pictures', {
-        method: 'POST',
-        headers: {
-          ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        },
-        body: uploadFormData,
-      });
+      const response = await apiPost('/month-in-pictures', uploadFormData, true);
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -153,13 +146,7 @@ export default function AdminMonthInPictures() {
     }
 
     try {
-      const token = localStorage.getItem('auth_token');
-      const response = await fetch(`/api/month-in-pictures/${id}`, {
-        method: 'DELETE',
-        headers: {
-          ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        },
-      });
+      const response = await apiDelete(`/month-in-pictures/${id}`, true);
 
       if (!response.ok) {
         throw new Error('Delete failed');

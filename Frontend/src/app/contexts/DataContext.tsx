@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { apiGet, apiPost, apiPut, apiDelete } from '../utils/api';
 
 export interface MonthInPicturesItem {
   id: string;
@@ -67,15 +68,6 @@ interface DataProviderProps {
   children: ReactNode;
 }
 
-// Helper to get auth header
-const getAuthHeaders = () => {
-  const token = localStorage.getItem('auth_token');
-  return {
-    'Content-Type': 'application/json',
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  };
-};
-
 // Map MongoDB document to frontend shape (replace _id with id)
 const mapDoc = (doc: any) => {
   const { _id, __v, createdAt, updatedAt, ...rest } = doc;
@@ -94,10 +86,10 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
     const fetchAll = async () => {
       try {
         const [mipRes, pcRes, pcovRes, prRes] = await Promise.all([
-          fetch('/api/month-in-pictures'),
-          fetch('/api/press-conferences'),
-          fetch('/api/press-coverages'),
-          fetch('/api/press-releases'),
+          apiGet('/month-in-pictures', false),
+          apiGet('/press-conferences', false),
+          apiGet('/press-coverages', false),
+          apiGet('/press-releases', false),
         ]);
 
         const [mipData, pcData, pcovData, prData] = await Promise.all([
@@ -121,11 +113,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
 
   // --- Month in Pictures ---
   const addMonthInPictures = async (item: Omit<MonthInPicturesItem, 'id'>) => {
-    const res = await fetch('/api/month-in-pictures', {
-      method: 'POST',
-      headers: getAuthHeaders(),
-      body: JSON.stringify(item),
-    });
+    const res = await apiPost('/month-in-pictures', item, true);
     if (res.ok) {
       const doc = await res.json();
       setMonthInPictures(prev => [...prev, mapDoc(doc)]);
@@ -133,11 +121,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   };
 
   const updateMonthInPictures = async (id: string, item: Partial<MonthInPicturesItem>) => {
-    const res = await fetch(`/api/month-in-pictures/${id}`, {
-      method: 'PUT',
-      headers: getAuthHeaders(),
-      body: JSON.stringify(item),
-    });
+    const res = await apiPut(`/month-in-pictures/${id}`, item, true);
     if (res.ok) {
       const doc = await res.json();
       setMonthInPictures(prev => prev.map(m => m.id === id ? mapDoc(doc) : m));
@@ -145,10 +129,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   };
 
   const deleteMonthInPictures = async (id: string) => {
-    const res = await fetch(`/api/month-in-pictures/${id}`, {
-      method: 'DELETE',
-      headers: getAuthHeaders(),
-    });
+    const res = await apiDelete(`/month-in-pictures/${id}`, true);
     if (res.ok) {
       setMonthInPictures(prev => prev.filter(m => m.id !== id));
     }
@@ -156,11 +137,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
 
   // --- Press Conferences ---
   const addPressConference = async (item: Omit<PressConferenceItem, 'id'>) => {
-    const res = await fetch('/api/press-conferences', {
-      method: 'POST',
-      headers: getAuthHeaders(),
-      body: JSON.stringify(item),
-    });
+    const res = await apiPost('/press-conferences', item, true);
     if (res.ok) {
       const doc = await res.json();
       setPressConferences(prev => [...prev, mapDoc(doc)]);
@@ -168,11 +145,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   };
 
   const updatePressConference = async (id: string, item: Partial<PressConferenceItem>) => {
-    const res = await fetch(`/api/press-conferences/${id}`, {
-      method: 'PUT',
-      headers: getAuthHeaders(),
-      body: JSON.stringify(item),
-    });
+    const res = await apiPut(`/press-conferences/${id}`, item, true);
     if (res.ok) {
       const doc = await res.json();
       setPressConferences(prev => prev.map(p => p.id === id ? mapDoc(doc) : p));
@@ -180,10 +153,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   };
 
   const deletePressConference = async (id: string) => {
-    const res = await fetch(`/api/press-conferences/${id}`, {
-      method: 'DELETE',
-      headers: getAuthHeaders(),
-    });
+    const res = await apiDelete(`/press-conferences/${id}`, true);
     if (res.ok) {
       setPressConferences(prev => prev.filter(p => p.id !== id));
     }
@@ -191,11 +161,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
 
   // --- Press Coverages ---
   const addPressCoverage = async (item: Omit<PressCoverageItem, 'id'>) => {
-    const res = await fetch('/api/press-coverages', {
-      method: 'POST',
-      headers: getAuthHeaders(),
-      body: JSON.stringify(item),
-    });
+    const res = await apiPost('/press-coverages', item, true);
     if (res.ok) {
       const doc = await res.json();
       setPressCoverages(prev => [...prev, mapDoc(doc)]);
@@ -203,11 +169,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   };
 
   const updatePressCoverage = async (id: string, item: Partial<PressCoverageItem>) => {
-    const res = await fetch(`/api/press-coverages/${id}`, {
-      method: 'PUT',
-      headers: getAuthHeaders(),
-      body: JSON.stringify(item),
-    });
+    const res = await apiPut(`/press-coverages/${id}`, item, true);
     if (res.ok) {
       const doc = await res.json();
       setPressCoverages(prev => prev.map(p => p.id === id ? mapDoc(doc) : p));
@@ -215,10 +177,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   };
 
   const deletePressCoverage = async (id: string) => {
-    const res = await fetch(`/api/press-coverages/${id}`, {
-      method: 'DELETE',
-      headers: getAuthHeaders(),
-    });
+    const res = await apiDelete(`/press-coverages/${id}`, true);
     if (res.ok) {
       setPressCoverages(prev => prev.filter(p => p.id !== id));
     }
@@ -226,11 +185,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
 
   // --- Press Releases ---
   const addPressRelease = async (item: Omit<PressReleaseItem, 'id'>) => {
-    const res = await fetch('/api/press-releases', {
-      method: 'POST',
-      headers: getAuthHeaders(),
-      body: JSON.stringify(item),
-    });
+    const res = await apiPost('/press-releases', item, true);
     if (res.ok) {
       const doc = await res.json();
       setPressReleases(prev => [...prev, mapDoc(doc)]);
@@ -238,11 +193,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   };
 
   const updatePressRelease = async (id: string, item: Partial<PressReleaseItem>) => {
-    const res = await fetch(`/api/press-releases/${id}`, {
-      method: 'PUT',
-      headers: getAuthHeaders(),
-      body: JSON.stringify(item),
-    });
+    const res = await apiPut(`/press-releases/${id}`, item, true);
     if (res.ok) {
       const doc = await res.json();
       setPressReleases(prev => prev.map(p => p.id === id ? mapDoc(doc) : p));
@@ -250,10 +201,7 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   };
 
   const deletePressRelease = async (id: string) => {
-    const res = await fetch(`/api/press-releases/${id}`, {
-      method: 'DELETE',
-      headers: getAuthHeaders(),
-    });
+    const res = await apiDelete(`/press-releases/${id}`, true);
     if (res.ok) {
       setPressReleases(prev => prev.filter(p => p.id !== id));
     }
