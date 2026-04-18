@@ -15,6 +15,11 @@ const PORT = process.env.PORT || 5000;
 const NODE_ENV = process.env.NODE_ENV || "development";
 const CORS_ORIGIN = process.env.CORS_ORIGIN || "http://localhost:5173";
 
+console.log("ENV CHECK:", {
+  MONGODB_URI: process.env.MONGODB_URI ?? "MISSING",
+  JWT_SECRET: process.env.JWT_SECRET ?? "MISSING",
+  NODE_ENV: process.env.NODE_ENV ?? "MISSING",
+});
 // Validate required environment variables
 // if (!process.env.MONGODB_URI || !process.env.JWT_SECRET) {
 //   console.error(
