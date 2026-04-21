@@ -67,30 +67,28 @@ const upload = multer({
 
 // Wrapper to handle multer errors and ensure req.body is populated
 const uploadMiddleware = (req, res, next) => {
-  console.log(`[Upload] Starting upload for fields: ${req.headers['content-length']} bytes`);
+  console.log(`[Upload] Starting upload. Content-Length: ${req.headers['content-length']}`);
   
   upload.fields([
     { name: "pdfFile", maxCount: 1 },
     { name: "thumbnail", maxCount: 1 },
   ])(req, res, (err) => {
     if (err) {
-      console.error("Multer/Cloudinary Error Details:", JSON.stringify(err, null, 2));
-      console.error("Multer/Cloudinary Error Message:", err.message);
+      // Log the full error to the server console
+      console.error("DEBUG: Multer/Cloudinary Error Object:", err);
       
-      return res
-        .status(400)
-        .json({ 
-          message: err.message || "File upload failed at storage provider.",
-          error: process.env.NODE_ENV === 'development' ? err : undefined
-        });
+      // Return the full error to the client for debugging
+      return res.status(400).json({ 
+        message: err.message || "File upload failed at storage provider.",
+        debug: err // Sending full error back to see it in browser
+      });
     }
     
-    console.log("[Upload] Files uploaded successfully:", 
-      req.files?.pdfFile?.[0]?.path || 'No PDF', 
-      req.files?.thumbnail?.[0]?.path || 'No Thumbnail'
+    console.log("[Upload] Success mapping to Cloudinary paths:", 
+      req.files?.pdfFile?.[0]?.path, 
+      req.files?.thumbnail?.[0]?.path
     );
 
-    // Ensure req.body exists
     if (!req.body) req.body = {};
     next();
   });
