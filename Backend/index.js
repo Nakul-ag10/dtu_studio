@@ -25,7 +25,7 @@ const CORS_ORIGIN = process.env.CORS_ORIGIN || "http://localhost:5173";
 
 // CORS configuration
 const corsOptions = {
-  origin: NODE_ENV === "production" ? CORS_ORIGIN : "*",
+  origin: ["https://dtustudio.netlify.app", CORS_ORIGIN, "http://localhost:5173", "http://localhost:3000"],
   credentials: true,
   optionsSuccessStatus: 200,
 };
