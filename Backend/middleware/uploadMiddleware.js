@@ -18,45 +18,36 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: async (req, file) => {
-    let folder = "dtu_studio/misc";
-    let resource_type = "auto"; // Default to auto let Cloudinary decide
-
-    if (file.fieldname === "pdfFile") {
-      folder = "dtu_studio/pdfs";
-      resource_type = "raw"; // Keep raw for PDFs to avoid conversion issues
-    } else if (file.fieldname === "thumbnail") {
-      folder = "dtu_studio/thumbnails";
-      resource_type = "image";
-    }
-
+    const folder = file.fieldname === "pdfFile" ? "dtu_studio/pdfs" : "dtu_studio/thumbnails";
+    
     return {
       folder: folder,
-      resource_type: resource_type,
-      public_id: `${Date.now()}-${file.originalname.replace(/[^a-z0-9]/gi, '_').toLowerCase()}`,
+      resource_type: "auto", // 'auto' is most reliable for Multer 1.x + Cloudinary
+      public_id: `${Date.now()}-${file.originalname.split('.')[0].replace(/[^a-z0-9]/gi, '_').toLowerCase()}`,
     };
   },
 });
 
-// File filter
+// File filter (Compatible with Multer 1.x)
 const fileFilter = (req, file, cb) => {
   if (file.fieldname === "pdfFile") {
     if (file.mimetype === "application/pdf") {
       cb(null, true);
     } else {
-      cb(new Error("Only PDF files allowed for pdfFile"), false);
+      cb(new Error("Validation Error: Only PDF files allowed for pdfFile"), false);
     }
   } else if (file.fieldname === "thumbnail") {
     if (file.mimetype.startsWith("image/")) {
       cb(null, true);
     } else {
-      cb(new Error("Only image files allowed for thumbnail"), false);
+      cb(new Error("Validation Error: Only images allowed for thumbnail"), false);
     }
   } else {
-    cb(new Error(`Unknown field: ${file.fieldname}`), false);
+    cb(new Error(`Validation Error: Unknown field: ${file.fieldname}`), false);
   }
 };
 
-// Multer configuration
+// Multer configuration (Stable 1.x)
 const upload = multer({
   storage,
   fileFilter,
@@ -74,14 +65,22 @@ const uploadMiddleware = (req, res, next) => {
     { name: "thumbnail", maxCount: 1 },
   ])(req, res, (err) => {
     if (err) {
-      // Log the full error to the server console
-      console.error("DEBUG: Multer/Cloudinary Error Object:", err);
+      console.error("DEBUG: Full Error Object:", err);
       
-      // Return the full error to the client for debugging
-      return res.status(400).json({ 
+      // Standard Error objects are not JSON-serializable by default
+      const errorResponse = {
         message: err.message || "File upload failed at storage provider.",
-        debug: err // Sending full error back to see it in browser
+        code: err.code || "UNKNOWN_ERROR",
+        details: err.http_code ? `Cloudinary HTTP ${err.http_code}` : undefined,
+        raw: {}
+      };
+
+      // Manually copy properties because Error objects have non-enumerable props
+      Object.getOwnPropertyNames(err).forEach(key => {
+        errorResponse.raw[key] = err[key];
       });
+
+      return res.status(400).json(errorResponse);
     }
     
     console.log("[Upload] Success mapping to Cloudinary paths:", 
