@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { DollarSign, Camera, Video, Palette, Users, FileText } from "lucide-react";
+import { DollarSign, Camera, Video, Palette, Users, FileText, CogIcon, AlertCircle } from "lucide-react";
 
 export default function StudioCharges() {
   const pricingCategories = [
@@ -90,7 +90,7 @@ export default function StudioCharges() {
           <div className="bg-white rounded-lg p-6 border border-border mb-8">
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                <DollarSign className="text-amber-600" size={24} />
+                <AlertCircle className="text-amber-600" size={24} />
               </div>
               <div>
                 <h3 className="mb-2">Important Note</h3>
@@ -159,29 +159,32 @@ export default function StudioCharges() {
               </div>
             </motion.div>
           ))}
-        </div>
 
-        {/* <div className="mt-12 bg-white rounded-lg p-8 border border-border text-center">
+          
+        </div>
+        
+
+         <div className="mt-12 bg-white rounded-lg p-8 border border-border text-center">
           <h3 className="mb-4">Need to Contact Us?</h3>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-            We offer customized packages for large events, long-term projects, and specific requirements.
-            Contact us for personalized quotes and special pricing.
+                  For reservations or any further query regarding our services, please contact us at{" pro@dtu.ac.in"}
+
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="/contact"
               className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
             >
-              Get Custom Quote
+              Contact Us
             </a>
             <a
-              href="tel:+91-XXXXXXXXXX"
-              className="px-6 py-3 bg-white text-foreground border border-border rounded-lg hover:bg-secondary transition-colors"
+              href={`mailto:${"pro@dtu.ac.in"}`}
+              className="px-6 py-3 bg-secondary text-black rounded-lg border hover:bg-white/90 transition-colors"
             >
-              Call for Details
+              Mail
             </a>
           </div>
-        </div> */}
+        </div> 
       </div>
     </div>
   );

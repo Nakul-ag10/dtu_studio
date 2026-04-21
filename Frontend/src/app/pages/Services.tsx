@@ -35,13 +35,13 @@ const services = [
       "Full-spectrum video production — pre-production, production, and post-production — powered by Final Cut Pro X (FCP-10) on iMac systems with professional editing suites.",
     features: ["Live Event Recording", "Promotional Videos", "Interview Production", "Video Editing & Post-Production"],
   },
-  {
-    icon: Tv,
-    title: "Live Broadcasting & Streaming",
-    description:
-      "Multi-camera live streaming of university events using Two Sony Studio Cameras, Two Camcorders, and advanced control panels to manage multiple video and audio sources simultaneously.",
-    features: ["Multi-Camera Setup", "Live Streaming", "Real-time Updates", "Broadcast-quality Output"],
-  },
+  // {
+  //   icon: Tv,
+  //   title: "Live Broadcasting & Streaming",
+  //   description:
+  //     "Multi-camera live streaming of university events using Two Sony Studio Cameras, Two Camcorders, and advanced control panels to manage multiple video and audio sources simultaneously.",
+  //   features: ["Multi-Camera Setup", "Live Streaming", "Real-time Updates", "Broadcast-quality Output"],
+  // },
   {
     icon: Mic,
     title: "Podcasting — Engitales",
@@ -49,13 +49,13 @@ const services = [
       "DTU Studio's flagship podcast series 'Engitales' features conversations with distinguished faculty, alumni, vice chancellors, and industry leaders, available on the DTU Studio YouTube channel.",
     features: ["Studio Podcast Recording", "Guest Management", "Audio Post-Production", "YouTube Distribution"],
   },
-  {
-    icon: Radio,
-    title: "ENG (Electronic News Gathering)",
-    description:
-      "Two dedicated ENG camera setups for capturing outdoor events, festivals, seminars, and live performances held across the DTU campus.",
-    features: ["Outdoor Event Coverage", "Festivals & Seminars", "Live Performances", "Field Production"],
-  },
+  // {
+  //   icon: Radio,
+  //   title: "ENG (Electronic News Gathering)",
+  //   description:
+  //     "Two dedicated ENG camera setups for capturing outdoor events, festivals, seminars, and live performances held across the DTU campus.",
+  //   features: ["Outdoor Event Coverage", "Festivals & Seminars", "Live Performances", "Field Production"],
+  // },
   {
     icon: BookOpen,
     title: "Academic Content & Lecture Recording",
@@ -91,20 +91,20 @@ const services = [
       "Professional content writing and multimedia production for DTU communications — press releases, news articles, blog posts, and digital content representing the University's identity.",
     features: ["Press Releases", "News Articles", "Blog Writing", "Multimedia Content"],
   },
-  {
-    icon: Calendar,
-    title: "Event Planning Support",
-    description:
-      "Technical support, logistics coordination, and equipment management for university events. The studio is located on the first floor of the Civil Engineering Department building.",
-    features: ["Technical Support", "Logistics Coordination", "Equipment Setup", "On-site Support"],
-  },
-  {
-    icon: Award,
-    title: "Training & Workshops",
-    description:
-      "Educational workshops and training sessions for students interested in photography, videography, graphic design, and digital media production skills.",
-    features: ["Photography Workshops", "Video Production Training", "Design Workshops", "Media Skills Development"],
-  },
+  // {
+  //   icon: Calendar,
+  //   title: "Event Planning Support",
+  //   description:
+  //     "Technical support, logistics coordination, and equipment management for university events. The studio is located on the first floor of the Civil Engineering Department building.",
+  //   features: ["Technical Support", "Logistics Coordination", "Equipment Setup", "On-site Support"],
+  // },
+  // {
+  //   icon: Award,
+  //   title: "Training & Workshops",
+  //   description:
+  //     "Educational workshops and training sessions for students interested in photography, videography, graphic design, and digital media production skills.",
+  //   features: ["Photography Workshops", "Video Production Training", "Design Workshops", "Media Skills Development"],
+  // },
 ];
 
 // Featured YouTube videos (from annual report)
@@ -338,7 +338,7 @@ export default function Services() {
                 { label: "Editing Suite", value: "iMac + FCP-10", sub: "Final Cut Pro X, Photoshop, Motion, LiveType" },
                 { label: "Display Panel", value: "75-inch Panasonic", sub: "Interactive display with CPU" },
                 { label: "Audio Console", value: "Yamaha O1V96", sub: "Digital audio mixing console" },
-                { label: "YouTube Library", value: "2,000+ Lectures", sub: "Diverse topics on the official channel" },
+                { label: "YouTube Library", value: "2,000+ Videos", sub: "Diverse topics on the official channel" },
               ].map((item) => (
                 <div key={item.label} className="bg-gradient-to-b from-primary/50 to-white border border-border rounded-lg p-4">
                   <p className="text-sm text-black/90 mb-1">{item.label}</p>
@@ -422,7 +422,7 @@ export default function Services() {
           </div>
         </section>
 
-        {/* ── Events Covered ── */}
+        {/* ── Events Covered ──
         <section className="bg-white rounded-lg border border-border p-8">
           <h2 className="mb-4">Events Covered by DTU Studio</h2>
           <p className="text-muted-foreground mb-6">
@@ -445,7 +445,7 @@ export default function Services() {
               </span>
             ))}
           </div>
-        </section>
+        </section> */}
 
         {/* ── Featured YouTube Videos ── */}
         <section>
@@ -535,7 +535,7 @@ export default function Services() {
               {
                 step: "1",
                 title: "Submit Request",
-                desc: "Fill out the service request form with event details, requirements, and timeline.",
+                desc: "Send us an email with event details, requirements, and timeline.",
               },
               {
                 step: "2",

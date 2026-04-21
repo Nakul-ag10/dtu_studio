@@ -112,7 +112,7 @@ export default function Team() {
                         <img
                           src={member.image}
                           alt={member.name}
-                          className="w-full h-56 sm:h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                          className="w-full h-72 sm:h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                         />
                       ) : (
                         <div className="w-full h-56 sm:h-full bg-primary text-white flex items-center justify-center text-3xl font-bold">
@@ -171,7 +171,7 @@ export default function Team() {
                         <img
                           src={member.image}
                           alt={member.name}
-                          className="w-full h-56 object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                          className="w-full aspect-[3/4] object-cover object-top group-hover:scale-105 transition-transform duration-500"
                         />
                       ) : (
                         <div className="w-full h-56 bg-primary text-white flex items-center justify-center text-3xl font-bold">
@@ -210,30 +210,12 @@ export default function Team() {
             )}
 
             {sectionIndex < teamStructure.length - 1 && (
-              <div className="mt-16 border-t border-border" />
+              <div className="mt-16 r" />
             )}
           </div>
         ))}
 
-        {/* Join CTA */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mt-20 text-center bg-white rounded-xl p-10 border border-border"
-        >
-          <h3 className="text-2xl font-semibold mb-3">Join Our Team</h3>
-          <div className="w-8 h-0.5 bg-primary mx-auto mb-4" />
-          <p className="text-muted-foreground mb-7 max-w-xl mx-auto text-sm leading-relaxed">
-            Interested in becoming part of DTU Media Cell? We're always looking for passionate individuals with skills in photography, videography, content creation, and design.
-          </p>
-          <a
-            href="/contact"
-            className="inline-block px-7 py-2.5 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors"
-          >
-            Get in Touch
-          </a>
-        </motion.div>
+        
 
       </div>
     </div>

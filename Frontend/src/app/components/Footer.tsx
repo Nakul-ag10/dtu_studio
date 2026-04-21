@@ -72,10 +72,7 @@ export default function Footer() {
                   pro@dtu.ac.in
                 </a>
               </li>
-              <li className="flex items-center gap-3 text-gray-400">
-                <Phone size={15} className="shrink-0 text-primary" />
-                <span>+91-XXXX-XXXXXX</span>
-              </li>
+              
             </ul>
           </div>
 

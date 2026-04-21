@@ -85,13 +85,13 @@ export default function MonthInPictures() {
       >
         <div className="absolute inset-0 bg-black/65" />
         {/* Subtle horizontal lines texture */}
-        <div
+        {/* <div
           className="absolute inset-0 opacity-5"
           style={{
             backgroundImage:
               "repeating-linear-gradient(0deg, transparent, transparent 38px, rgba(255,255,255,1) 38px, rgba(255,255,255,1) 39px)",
           }}
-        />
+        /> */}
         <div className="relative mx-auto px-6 lg:px-8 max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -99,8 +99,7 @@ export default function MonthInPictures() {
             transition={{ duration: 0.5 }}
           >
             <div className="flex items-center gap-2 mb-4">
-              <BookOpen size={13} className="text-primary/70" />
-              <p className="text-xs uppercase tracking-[0.25em] text-white/50 font-medium">DTU Media Cell</p>
+              <p className="text-xs uppercase tracking-[0.15em] text-white/50 font-medium">DTU Media Cell</p>
             </div>
             <h1 className="text-4xl md:text-5xl font-semibold mb-4">Month In Pictures</h1>
             <div className="w-10 h-0.5 bg-primary mb-5" />
