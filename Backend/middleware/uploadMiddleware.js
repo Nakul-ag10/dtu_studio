@@ -2,6 +2,11 @@ const multer = require("multer");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cloudinary = require("cloudinary").v2;
 
+// Ensure environment variables are loaded
+if (!process.env.CLOUDINARY_CLOUD_NAME) {
+  console.error("WARNING: CLOUDINARY_CLOUD_NAME is not defined in environment variables");
+}
+
 // Configure Cloudinary
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -14,13 +19,11 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: async (req, file) => {
     let folder = "dtu_studio/misc";
-    let resource_type = "auto";
-    let format = undefined;
+    let resource_type = "auto"; // Default to auto let Cloudinary decide
 
     if (file.fieldname === "pdfFile") {
       folder = "dtu_studio/pdfs";
-      resource_type = "raw"; 
-      // Raw prevents Cloudinary from altering PDF files incorrectly
+      resource_type = "raw"; // Keep raw for PDFs to avoid conversion issues
     } else if (file.fieldname === "thumbnail") {
       folder = "dtu_studio/thumbnails";
       resource_type = "image";
@@ -29,12 +32,12 @@ const storage = new CloudinaryStorage({
     return {
       folder: folder,
       resource_type: resource_type,
-      public_id: `${Date.now()}-${Math.round(Math.random() * 1e9)}`,
+      public_id: `${Date.now()}-${file.originalname.replace(/[^a-z0-9]/gi, '_').toLowerCase()}`,
     };
   },
 });
 
-// File filter (Optional, but adds an extra layer of security)
+// File filter
 const fileFilter = (req, file, cb) => {
   if (file.fieldname === "pdfFile") {
     if (file.mimetype === "application/pdf") {
@@ -49,7 +52,7 @@ const fileFilter = (req, file, cb) => {
       cb(new Error("Only image files allowed for thumbnail"), false);
     }
   } else {
-    cb(new Error("Unknown field"), false);
+    cb(new Error(`Unknown field: ${file.fieldname}`), false);
   }
 };
 
@@ -64,20 +67,31 @@ const upload = multer({
 
 // Wrapper to handle multer errors and ensure req.body is populated
 const uploadMiddleware = (req, res, next) => {
+  console.log(`[Upload] Starting upload for fields: ${req.headers['content-length']} bytes`);
+  
   upload.fields([
     { name: "pdfFile", maxCount: 1 },
     { name: "thumbnail", maxCount: 1 },
   ])(req, res, (err) => {
     if (err) {
-      console.error("Multer Error:", err);
+      console.error("Multer/Cloudinary Error Details:", JSON.stringify(err, null, 2));
+      console.error("Multer/Cloudinary Error Message:", err.message);
+      
       return res
         .status(400)
-        .json({ message: err.message || "File upload error" });
+        .json({ 
+          message: err.message || "File upload failed at storage provider.",
+          error: process.env.NODE_ENV === 'development' ? err : undefined
+        });
     }
-    // Ensure req.body exists and parse fields
-    if (!req.body) {
-      req.body = {};
-    }
+    
+    console.log("[Upload] Files uploaded successfully:", 
+      req.files?.pdfFile?.[0]?.path || 'No PDF', 
+      req.files?.thumbnail?.[0]?.path || 'No Thumbnail'
+    );
+
+    // Ensure req.body exists
+    if (!req.body) req.body = {};
     next();
   });
 };

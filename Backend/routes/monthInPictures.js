@@ -33,7 +33,10 @@ router.get("/", async (req, res) => {
 });
 
 // POST with file upload (protected)
-router.post("/", authMiddleware, upload, async (req, res) => {
+router.post("/", authMiddleware, (req, res, next) => {
+  console.log(`[MonthInPictures] POST request hit by user: ${req.user?._id || 'unknown'}`);
+  next();
+}, upload, async (req, res) => {
   try {
     const { month, year } = req.body;
 
