@@ -11,7 +11,7 @@ const pressCoveragesRoutes = require("./routes/pressCoverages");
 const pressReleasesRoutes = require("./routes/pressReleases");
 
 const app = express();
-const PORT = process.env.PORT 
+const PORT = process.env.PORT || 5000;
 const NODE_ENV = process.env.NODE_ENV || "development";
 const CORS_ORIGIN = process.env.CORS_ORIGIN || "http://localhost:5173";
 
