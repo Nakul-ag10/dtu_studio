@@ -1,37 +1,40 @@
 const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("cloudinary").v2;
 
-// Ensure directories exist
-const uploadDirs = {
-  pdfs: path.join(__dirname, "../uploads/pdfs"),
-  thumbnails: path.join(__dirname, "../uploads/thumbnails"),
-};
-
-Object.values(uploadDirs).forEach((dir) => {
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-  }
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// Configure storage
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
+// Configure Storage
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: async (req, file) => {
+    let folder = "dtu_studio/misc";
+    let resource_type = "auto";
+    let format = undefined;
+
     if (file.fieldname === "pdfFile") {
-      cb(null, uploadDirs.pdfs);
+      folder = "dtu_studio/pdfs";
+      resource_type = "raw"; 
+      // Raw prevents Cloudinary from altering PDF files incorrectly
     } else if (file.fieldname === "thumbnail") {
-      cb(null, uploadDirs.thumbnails);
-    } else {
-      cb(new Error("Unknown field"), null);
+      folder = "dtu_studio/thumbnails";
+      resource_type = "image";
     }
-  },
-  filename: (req, file, cb) => {
-    const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1e9)}${path.extname(file.originalname)}`;
-    cb(null, uniqueName);
+
+    return {
+      folder: folder,
+      resource_type: resource_type,
+      public_id: `${Date.now()}-${Math.round(Math.random() * 1e9)}`,
+    };
   },
 });
 
-// File filter
+// File filter (Optional, but adds an extra layer of security)
 const fileFilter = (req, file, cb) => {
   if (file.fieldname === "pdfFile") {
     if (file.mimetype === "application/pdf") {
@@ -66,6 +69,7 @@ const uploadMiddleware = (req, res, next) => {
     { name: "thumbnail", maxCount: 1 },
   ])(req, res, (err) => {
     if (err) {
+      console.error("Multer Error:", err);
       return res
         .status(400)
         .json({ message: err.message || "File upload error" });
