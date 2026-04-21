@@ -90,7 +90,7 @@ export default function Team() {
               className="flex items-center gap-4 mb-10"
             >
               <div className="flex-1 h-px bg-border" />
-              <h2 className="text-2xl font-semibold text-primary shrink-0">{section.category}</h2>
+              <h2 className="text-4xl font-semibold text-primary shrink-0">{section.category}</h2>
               <div className="flex-1 h-px bg-border" />
             </motion.div>
 
@@ -127,8 +127,8 @@ export default function Team() {
                         In-Charge
                       </span> */}
                       <h3 className="text-xl font-bold mb-1">{member.name}</h3>
-                      <p className="text-sm text-muted-foreground mb-1 leading-snug">{member.role}</p>
-                      <p className="text-sm font-semibold text-primary mb-5">{member.designation}</p>
+                      <p className="text-md font-semibold text-primary mb-1 leading-snug">{member.role}</p>
+                      <p className="text-sm font-semibold text-muted-foreground mb-5">{member.designation}</p>
                       <div className="flex gap-2">
                         <a
                           href={`mailto:${member.email}`}
@@ -182,9 +182,9 @@ export default function Team() {
 
                     {/* Info */}
                     <div className="p-5">
-                      <h3 className="text-lg font-bold mb-1 leading-snug">{member.name}</h3>
-                      <p className="text-xs text-muted-foreground leading-relaxed mb-2">{member.role}</p>
-                      <p className="text-xs font-semibold text-primary mb-4">{member.designation}</p>
+                      <h3 className="text-xl font-bold mb-1 leading-snug">{member.name}</h3>
+                      <p className="text-md font-semibold text-primary mb-1 leading-snug">{member.role}</p>
+                      <p className="text-sm font-semibold text-muted-foreground mb-5">{member.designation}</p>
                       <div className="flex gap-2">
                         <a
                           href={`mailto:${member.email}`}

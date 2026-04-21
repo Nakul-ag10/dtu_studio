@@ -19,6 +19,7 @@ export default function Navbar() {
     { path: "/press-conferences", label: "Press Conferences" },
     { path: "/press-release", label: "Press Release" },
     { path: "/contact", label: "Contact" },
+    { path: "/admin", label : "Faculty Login" }
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -39,6 +40,10 @@ export default function Navbar() {
             <span className="opacity-40">|</span>
             <Link to="/contact" className="hover:opacity-100 transition-opacity">
               Contact
+            </Link>
+            <span className="opacity-40">|</span>
+            <Link to="/admin" className="hover:opacity-100 transition-opacity">
+              Faculty Login
             </Link>
           </div>
         </div>
@@ -68,7 +73,7 @@ export default function Navbar() {
 
             {/* Desktop nav */}
             <div className="hidden lg:flex items-center h-full">
-              {navLinks.filter(l => l.path !== "/contact").map((link) => (
+              {navLinks.filter(l => l.path !== "/contact" && l.path !== "/admin").map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}

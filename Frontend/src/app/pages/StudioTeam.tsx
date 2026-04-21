@@ -132,9 +132,8 @@ export default function StudioTeam() {
                 <div className="flex-1 p-6">
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                     <div className="flex-1">
-                      <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
-                      {/* <p className="text-primary font-medium mb-2">{member.designation}</p> */}
-                      {/* <p className="text-muted-foreground mb-3">{member.role}</p> */}
+                      <h3 className="text-xl font-semibold mb-2">{member.name}</h3>
+                      <p className="text-primary font-medium mb-2">{member.designation}</p>
 
                       {/* <div className="space-y-2 text-sm">
                         <div className="flex items-center gap-2">
@@ -150,7 +149,7 @@ export default function StudioTeam() {
 
                     <div className="flex flex-col gap-2">
                       
-                      <p className="text-primary font-medium mb-2">{member.designation}</p>
+                      {/* <p className="text-primary font-medium mb-2">{member.designation}</p> */}
                       
                     </div>
                   </div>
