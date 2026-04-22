@@ -4,23 +4,23 @@
  */
 require('dotenv').config();
 const mongoose = require('mongoose');
-const MonthInPictures = require('./models/MonthInPictures');
-const PressConference = require('./models/PressConference');
+// const MonthInPictures = require('./models/MonthInPictures');
+// const PressConference = require('./models/PressConference');
 const PressCoverage = require('./models/PressCoverage');
 const PressRelease = require('./models/PressRelease');
 
-const monthInPicturesData = [
-  { month: "March 2026", year: 2026, thumbnail: "img2501.png", imageCount: 45, images: ["img2501.png", "img2501.png", "img2501.png", "img2501.png", "img2501.png"] },
-  { month: "February 2026", year: 2026, thumbnail: "img2502.png", imageCount: 38, images: ["img2502.png", "img2502.png", "img2502.png", "img2502.png"] },
-  { month: "January 2026", year: 2026, thumbnail: "img2503.png", imageCount: 52, images: ["img2503.png", "img2503.png", "img2503.png", "img2503.png", "img2503.png", "img2503.png"] },
-  { month: "December 2025", year: 2025, thumbnail: "img2504.png", imageCount: 41, images: ["img2504.png", "img2504.png", "img2504.png"] },
-  { month: "November 2025", year: 2025, thumbnail: "img2505.png", imageCount: 35, images: ["img2505.png", "img2505.png"] },
-];
+// const monthInPicturesData = [
+//   { month: "March 2026", year: 2026, thumbnail: "img2501.png", imageCount: 45, images: ["img2501.png", "img2501.png", "img2501.png", "img2501.png", "img2501.png"] },
+//   { month: "February 2026", year: 2026, thumbnail: "img2502.png", imageCount: 38, images: ["img2502.png", "img2502.png", "img2502.png", "img2502.png"] },
+//   { month: "January 2026", year: 2026, thumbnail: "img2503.png", imageCount: 52, images: ["img2503.png", "img2503.png", "img2503.png", "img2503.png", "img2503.png", "img2503.png"] },
+//   { month: "December 2025", year: 2025, thumbnail: "img2504.png", imageCount: 41, images: ["img2504.png", "img2504.png", "img2504.png"] },
+//   { month: "November 2025", year: 2025, thumbnail: "img2505.png", imageCount: 35, images: ["img2505.png", "img2505.png"] },
+// ];
 
-const pressConferencesData = [
-  { title: 'DTU Press Conference on "AWARENESS ABOUT THE NEW ACADEMIC PROGRAMS AND INITIATIVES" 9th July -2025', youtubeLink: "https://youtu.be/tN0GPM7RQRE", date: "2026-03-15" },
-  { title: "Technology Innovation Summit", youtubeLink: "https://youtube.com/watch?v=example2", date: "2026-02-20" },
-];
+// const pressConferencesData = [
+//   { title: 'DTU Press Conference on "AWARENESS ABOUT THE NEW ACADEMIC PROGRAMS AND INITIATIVES" 9th July -2025', youtubeLink: "https://youtu.be/tN0GPM7RQRE", date: "2026-03-15" },
+//   { title: "Technology Innovation Summit", youtubeLink: "https://youtube.com/watch?v=example2", date: "2026-02-20" },
+// ];
 
 const pressCoveragesData = [
   { title: "DTU: Engineering curriculum to be aligned with SDGs, VC at international conference", summary: "Delhi Technological University (DTU) vice-chancellor Prateek Sharma announced that the curriculum of all engineering courses will be aligned to Sustainable Development Goals (SDG) for ensuring sustainability through educational and research efforts.", source: "Careers 360", date: "2025-01-09", link: "https://news.careers360.com/dtu-delhi-technological-university-engineering-curriculum-be-aligned-sustainable-development-goals-vice-chancellor/amp", thumbnail: "image_1.png" },
@@ -72,8 +72,8 @@ async function seed() {
 
     // Clear existing data
     await Promise.all([
-      MonthInPictures.deleteMany({}),
-      PressConference.deleteMany({}),
+      // MonthInPictures.deleteMany({}),
+      // PressConference.deleteMany({}),
       PressCoverage.deleteMany({}),
       PressRelease.deleteMany({}),
     ]);
@@ -81,8 +81,8 @@ async function seed() {
 
     // Insert seed data
     await Promise.all([
-      MonthInPictures.insertMany(monthInPicturesData),
-      PressConference.insertMany(pressConferencesData),
+      // MonthInPictures.insertMany(monthInPicturesData),
+      // PressConference.insertMany(pressConferencesData),
       PressCoverage.insertMany(pressCoveragesData),
       PressRelease.insertMany(pressReleasesData),
     ]);

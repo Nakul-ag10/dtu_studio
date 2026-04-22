@@ -81,7 +81,7 @@ const services = [
     icon: Users,
     title: "Event Coverage",
     description:
-      "Comprehensive documentation of Orientation Programmes, Convocation, Departmental Lecture Series, Distinguished Speaker Series, International Conferences, Student Fests, and Alumni Meets.",
+      "Comprehensive coverage of Orientation Programmes, Convocation, Departmental Lecture Series, Distinguished Speaker Series, International Conferences, Student Fests, and Alumni Meets.",
     features: ["Convocation Coverage", "Cultural Events", "Conferences & Summits", "Alumni & Student Events"],
   },
   {

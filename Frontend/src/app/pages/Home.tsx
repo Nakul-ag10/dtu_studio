@@ -15,17 +15,10 @@ export default function Home() {
   ];
 
   const backgroundImages = [
-    "/bg-1.png",
-    "/bg-2.png",
-    "/bg-3.png",
-    "/bg-4.png",
-    "/bg-5.png",
-    "/bg-6.png",
-    "/bg-7.png",
-    "/bg-9.png",
-    "/bg-10.png",
-    "/bg-11.png",
-    "/bg-12.png",
+    "/bg1.jpeg",
+    "/bg2.jpeg",
+    "/bg3.jpeg",
+    "/bg4.jpeg",
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -130,7 +123,7 @@ export default function Home() {
         </div>
 
         {/* Dark overlay for text legibility */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-transparent" />
 
         {/* Content */}
         <div className="relative mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] w-full">
