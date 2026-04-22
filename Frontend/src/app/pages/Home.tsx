@@ -147,7 +147,7 @@ export default function Home() {
             </h1>
 
             <p className="mb-8 text-lg text-white/60 max-w-2xl">
-              The official media and documentation hub of Delhi Technological University, preserving our institution's journey through compelling visual narratives and comprehensive coverage.
+              The Media Cell at DTU is the University's creative and communication hub, handling press releases, event documentation, studio production, social media presence, digital media management, and curated merchandise initiatives.
             </p>
 
             <div className="flex flex-wrap gap-4">
