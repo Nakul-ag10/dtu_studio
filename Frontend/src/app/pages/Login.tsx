@@ -5,7 +5,7 @@ import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 
-type AuthView = 'login' | 'signup' | 'forgot-password';
+type AuthView = 'login' | 'forgot-password';
 
 export default function Login() {
   const [view, setView] = useState<AuthView>('login');
@@ -41,22 +41,22 @@ export default function Login() {
     }
   };
 
-  const handleSignup = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
+  // const handleSignup = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setError('');
 
-    if (password !== confirmPassword) {
-      setError('Passwords do not match.');
-      return;
-    }
+  //   if (password !== confirmPassword) {
+  //     setError('Passwords do not match.');
+  //     return;
+  //   }
 
-    setLoading(true);
-    const result = await signup(email, password);
-    setLoading(false);
-    if (!result.success) {
-      setError(result.message);
-    }
-  };
+  //   setLoading(true);
+  //   const result = await signup(email, password);
+  //   setLoading(false);
+  //   if (!result.success) {
+  //     setError(result.message);
+  //   }
+  // };
 
   const handleForgotPassword = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -117,20 +117,14 @@ export default function Login() {
                   >
                     Forgot password?
                   </button>
-                  <button
-                    type="button"
-                    onClick={() => switchView('signup')}
-                    className="text-blue-600 hover:underline"
-                  >
-                    Create an account
-                  </button>
+                  
                 </div>
               </form>
             </CardContent>
           </>
         )}
 
-        {view === 'signup' && (
+        {/* {view === 'signup' && (
           <>
             <CardHeader>
               <CardTitle className="text-2xl">Create Account</CardTitle>
@@ -190,7 +184,7 @@ export default function Login() {
               </form>
             </CardContent>
           </>
-        )}
+        )} */}
 
         {view === 'forgot-password' && (
           <>
